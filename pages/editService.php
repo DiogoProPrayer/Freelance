@@ -12,7 +12,7 @@
 
 
     drawEditServiceHeader();
-    drawTopBar($status);
+    drawTopBar($status,$isAdmin);  
     drawEditService($serviceInfo,$imagesService,$categories,$tags,$tagsService);
     drawFooter();
 ?>

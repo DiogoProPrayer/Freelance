@@ -9,14 +9,15 @@
     $db = Database::getInstance();
 
     $auth = Authentication::getInstance();
+    $user_id = $auth->getUser();
     $userRep = new UserRepository($db);
     $service = new Service($db);
-    $user = $userRep->getUserbyId($auth->getUser());
+    $user = $userRep->getUserbyId($user_id);
     $services = [];
     $sellerOrders = [];
     $orders = [];
 
-    if ($auth->getUser() === 'null'){
+    if ($user_id === 'null'){
         header("Location: index.php");
         exit;
     } 
@@ -24,7 +25,7 @@
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['toggle_status_submit'])) { // Changed to look for a submit button
         $newStatus = ($_POST['toggle_status'] === 'seller') ? 'seller' : 'client';
 
-        $userRep->setUserStatus($newStatus,$user->getUserStatus(),$auth->getUser());
+        $userRep->setUserStatus($newStatus,$user->getUserStatus(),$user_id);
 
         // Update session
         $_SESSION['userStatus'] = $newStatus;
@@ -43,7 +44,7 @@
         $country = $_POST['country'] ?? $user['country'];
         $phoneNumber = $_POST['phoneNumber'] ?? $user['phoneNumber'];
 
-        $userRep->setUserInfo($name,$username,$email,$country,$phoneNumber,$auth->getUser());
+        $userRep->setUserInfo($name,$username,$email,$country,$phoneNumber,$user_id);
 
         // Handle profile image upload
         if (isset($_FILES['profile_image']) && $_FILES['profile_image']['error'] === UPLOAD_ERR_OK) {
@@ -62,7 +63,7 @@
                     @unlink($user->getProfileImage());
                 }
                 
-                $service->uploadImage($auth->getUser(),$targetFile);
+                $service->uploadImage($user_id,$targetFile);
                 
             }
         }
@@ -73,9 +74,11 @@
 
 
     if ($user->getUserStatus() === 'seller'){
-        $services = $service->getServicesbySeller($auth->getUser());
-        $sellerOrders = $service->getOrdersSeller($auth->getUser());
+        $services = $service->getServicesbySeller($user_id);
+        $sellerOrders = $service->getOrdersSeller($user_id);
     }
 
-    $orders = $service->getOrdersClient($auth->getUser());
+    if ($user->getUserStatus() === 'client'){
+        $orders = $service->getOrdersClient($user_id);
+    }
 ?>

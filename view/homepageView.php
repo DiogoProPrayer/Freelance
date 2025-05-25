@@ -14,11 +14,8 @@ require_once(__DIR__ . '/../model/authenticationClass.php');
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Freelance</title>
     <link rel="icon" href="/images/logo2.png">
-    <link rel="stylesheet" href="/css/base.css">
-    <link rel="stylesheet" href="/css/header.css">
-    <link rel="stylesheet" href="/css/footer.css">
-    <link rel="stylesheet" href="/css/components.css">
-    <link rel="stylesheet" href="/css/homepage.css">
+    <link rel="stylesheet" href="/css/common.css">
+    <link rel="stylesheet" href="/css/homePage.css">
     <script src="/js/authPopup.js" defer></script>
   </head>
 
@@ -52,7 +49,7 @@ require_once(__DIR__ . '/../model/authenticationClass.php');
         </header>
         <div class=scrollable>
           <?php foreach ($topsellers as $seller): ?>
-            <article class="seller card">
+            <article class="seller">
               <img class="profile_pic" src="<?php echo htmlspecialchars($seller['profileImage']); ?>" alt="user">
               <div class="information">
                 <div class="sellerName">
@@ -77,28 +74,31 @@ require_once(__DIR__ . '/../model/authenticationClass.php');
         </header>
         <div class="displayServices">
           <?php foreach ($popularServices as $service) : ?>
-            <article class="card service-card-item" onclick="window.location.href='/pages/service.php?id=<?php echo htmlspecialchars((string)$service['id']); ?>'" style="cursor:pointer;">
+            <article href="/pages/service.php?id=<?php echo $popularServices['id']; ?>">
               <ul class="ServiceImages">
                 <?php if (!empty($service['images'])) : ?>
                   <?php foreach ($service['images'] as $image): ?>
                     <img class="service_images" src="<?php echo htmlspecialchars($image) ?>" alt="service">
                   <?php endforeach ?>
                 <?php endif; ?>
+                <?php if (empty($service['images'])): ?>
+                  <img class="service_images" src="/images/art.jpg" alt="default service image">
+                <?php endif; ?>
               </ul>
               <div id="information">
-                <img class="profile_pic2" src="<?php echo htmlspecialchars($service['profileImage']) ?>" alt="seller">
+                <img class="profile_pic2" src="<?php echo htmlspecialchars($service['profileImage'] ??'/images/art.jpg') ?>" alt="seller">
                 <div class="service-details">
                   <div class="serviceTitle">
-                    <p><?php echo htmlspecialchars($service['Title']) ?></p>
+                    <p><?php echo htmlspecialchars($service['Title'] ?? 'Web development') ?></p>
                   </div>
                   <div class="sellerName">
-                    <p>Username: <?php echo htmlspecialchars($service['username']); ?></p>
+                    <p>Username: <?php echo htmlspecialchars($service['username'] ?? 'Buttercup'); ?></p>
                   </div>
                   <div class="sellerRating">
                     <p>Rating: <?php echo number_format($service['rating'], 1); ?></p>
                   </div>
-                  <div class="price card-text service-price"> <!-- Added classes for styling -->
-                    <p>Price: $<?php echo number_format((float)$service['price'], 2); ?></p> <!-- Assuming price is a number -->
+                  <div class="price">
+                    <p>Price: <?php echo number_format($service['price']) ?></p>
                   </div>
                 </div>
               </div>
@@ -112,64 +112,44 @@ require_once(__DIR__ . '/../model/authenticationClass.php');
 
   <?php function drawPopup()
   { ?>
-    <div id="authPopup" style="display: none;"> <!-- Changed ID and added style display:none -->
-      <div class="popup-content">
-        <button id="closePopup" class="close-btn">X</button> <!-- Changed id to closePopup -->
+    <div id="Popup">
+      <button id="close">X</button>
+      <div class="image-container">
+        <img id="genericImage" src="../images/freelances.jpg" alt="freelance" width=1000 height=600>
+      </div>
 
-        <section id="loginSection" class="active"> <!-- Changed id and class for consistency -->
-          <h3>Login</h3>
-          <form id="loginFormActual" action="../controller/loginController.php" method="post"> <!-- Changed id -->
-            <div class="form-group">
-              <label for="login-username">Username</label>
-              <input type="text" id="login-username" name="username" placeholder="Username" required>
-            </div>
-            <div class="form-group">
-              <label for="login-password">Password</label>
-              <input type="password" id="login-password" name="password" placeholder="Password" required>
-            </div>
-            <div class="form-actions">
-              <button class="btn btn-primary" type="submit">Login</button> <!-- Removed submit class -->
-            </div>
-          </form>
-          <p>Don't have an account? <a href="#" id="showRegister">Register here</a></p> <!-- Changed click handler -->
-        </section>
+      <div id="loginForm" class="form-wrapper">
+        <h3>Login</h3>
+        <form action="../controller/loginController.php" method="post">
+          <input type="text" name="username" placeholder="Username" required>
+          <span class="error-message" id="username-error"></span>
+          
+          <input type="password" name="password" placeholder="Password" required>
+          <span class="error-message" id="password-error"></span>
+          <button class="submit" type="submit">Login</button>
+        </form>
+        <p>Don't have an account? </p>
+        <br>
+        <a href="#" onclick="showAuthForm('register')">Register here</a>
+      </div>
 
-        <section id="registerSection"> <!-- Changed id -->
-          <h3>Register</h3>
-          <form id="registerFormActual" action="../controller/registerController.php" method="post"> <!-- Changed id -->
-            <div class="form-group">
-              <label for="register-name">Name</label>
-              <input type="text" id="register-name" name="name" placeholder="Name" required>
-            </div>
-            <div class="form-group">
-              <label for="register-username">Username</label>
-              <input type="text" id="register-username" name="username" placeholder="Username" required>
-            </div>
-            <div class="form-group">
-              <label for="register-email">Email</label>
-              <input type="email" id="register-email" name="email" placeholder="Email" required>
-            </div>
-            <div class="form-group">
-              <label for="register-password">Password</label>
-              <input type="password" id="register-password" name="password" placeholder="Password" required>
-            </div>
-            <div class="form-group">
-              <label for="register-confirm-password">Confirm Password</label>
-              <input type="password" id="register-confirm-password" name="confirm_password" placeholder="Confirm Password" required>
-            </div>
-            <div class="form-group">
-              <label for="register-userStatus">Register as</label>
-              <select name="userStatus" id="register-userStatus">
-                <option value="client">Client</option>
-                <option value="seller">Seller</option>
-              </select>
-            </div>
-            <div class="form-actions">
-              <button class="btn btn-primary" type="submit">Register</button> <!-- Removed submit class -->
-            </div>
-          </form>
-          <p>Already have an account? <a href="#" id="showLogin">Login here</a></p> <!-- Changed click handler -->
-        </section>
-      </div> <!-- End of .popup-content -->
+      <div id="registerForm" class="form-wrapper">
+        <h3>Register</h3>
+        <form action="../controller/registerController.php" method="post">
+          <input type="text" name="name" placeholder="Name" required>
+          <input type="text" name="username" placeholder="Username" required>
+          <input type="email" name="email" placeholder="Email" required>
+          <input type="password" name="password" placeholder="Password" required>
+          <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+          <select name="userStatus">
+            <option value="client">Client</option>
+            <option value="seller">Seller</option>
+          </select>
+          <button class="submit" type="submit">Register</button>
+        </form>
+        <p>Already have an account? </p>
+        <br>
+        <a href="#" onclick="showAuthForm('login')">Login here</a>
+      </div>
     </div>
   <?php } ?>

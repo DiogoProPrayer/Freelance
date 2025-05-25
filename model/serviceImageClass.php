@@ -7,6 +7,13 @@
             $this->database = $db;
         }
 
+        public function getImagebyService(int $serviceId){
+            $imgStmt = $this->database->prepare("SELECT image FROM ServiceImages WHERE service = :id LIMIT 1");
+            $imgStmt->execute(['id' => $serviceId]);
+            $image = $imgStmt->fetchColumn();
+            return $image;
+        }
+
         public function uploadServiceImages(int $serviceId, array $files){
             $uploadDir = __DIR__ . '/../uploads/services/';
 

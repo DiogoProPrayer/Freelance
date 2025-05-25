@@ -23,7 +23,7 @@ CREATE TABLE User (
     phoneNumber TEXT,
     userStatus TEXT CHECK (userStatus IN ('client', 'seller', 'admin')) NOT NULL DEFAULT 'client',
     isAdmin INTEGER CHECK (isAdmin IN (0, 1)) DEFAULT 0,
-    rating REAL DEFAULT 0,
+    ratings REAL DEFAULT 0,
     currency TEXT
 );
 
@@ -47,10 +47,10 @@ CREATE TABLE Service (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     seller INTEGER NOT NULL,
     title TEXT NOT NULL,
-    descript TEXT,
+    description TEXT,
     price REAL NOT NULL,
     category INTEGER,
-    deliverTime TEXT,
+    deliverTime INTEGER,
     FOREIGN KEY (seller) REFERENCES User(id)
         ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (category) REFERENCES Categories(id)
@@ -86,6 +86,9 @@ CREATE TABLE ServiceOrder (
     buyer INTEGER NOT NULL,
     orderStatus TEXT NOT NULL,
     rating INTEGER CHECK (rating BETWEEN 1 AND 5),
+    original_days INTEGER NOT NULL DEFAULT 0,
+    remaining_days INTEGER NOT NULL DEFAULT 0,
+    last_updated DATETIME DEFAULT CURRENT_TIMESTAMP,
     review TEXT,
     FOREIGN KEY (service) REFERENCES Service(id)
         ON DELETE CASCADE ON UPDATE CASCADE,
@@ -104,6 +107,19 @@ CREATE TABLE Messages (
     FOREIGN KEY (receiver) REFERENCES User(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+
+
+--Triggers--
+
+CREATE TRIGGER initialize_delivery_days
+AFTER INSERT ON ServiceOrder
+BEGIN
+    UPDATE ServiceOrder 
+    SET 
+        original_days = (SELECT deliverTime FROM Service WHERE id = NEW.service),
+        remaining_days = (SELECT deliverTime FROM Service WHERE id = NEW.service)
+    WHERE id = NEW.id;
+END;
 -- Triggers
 
 CREATE TRIGGER IF NOT EXISTS service_rating

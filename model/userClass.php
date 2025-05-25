@@ -10,6 +10,7 @@
         public string $profileImage;
         public ?string $country;
         public ?string $phoneNumber;
+        public ?int $isAdmin;
 
         public function __construct(array $data) {
             $this->user_id = (int)$data['id'];
@@ -21,6 +22,7 @@
             $this->profileImage = $data['profileImage'] ?? '../images/default_user.jpg';
             $this->country = $data['country'];
             $this->phoneNumber = $data['phoneNumber'];
+            $this->isAdmin = $data['isAdmin'] ?? 0;
         }
 
         public function getUserStatus(){
@@ -51,6 +53,10 @@
         }
         public function getPhoneNumber(){
             return $this->phoneNumber;
+        }
+
+        public function getIsAdmin(){
+            return $this->isAdmin;
         }
     }
 

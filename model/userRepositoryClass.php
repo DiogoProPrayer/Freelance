@@ -18,21 +18,36 @@
         }
 
         public function setUserStatus(string $new_userStatus, string $old_userStatus, int $userID) {
-            // Atualiza a coluna userStatus
+
             $stmt = $this->database->prepare("UPDATE User SET userStatus = :userStatus WHERE id = :userID");
 
-            // Bind dos parâmetros corretamente
             $stmt->bindParam(":userStatus", $new_userStatus, PDO::PARAM_STR);
             $stmt->bindParam(":userID", $userID, PDO::PARAM_INT);
 
-            // Executa a consulta
+
             if ($stmt->execute()) {
                 echo "Status atualizado com sucesso para o usuário ID: $userID";
             } else {
-                echo "Erro ao atualizar: " . $stmt->errorInfo()[2]; // Mostra o erro completo da execução
+                echo "Erro ao atualizar: " . $stmt->errorInfo()[2]; 
             }
         }
 
+        public function getUsers(){
+            $stmt = $this->database->prepare("SELECT * FROM User ORDER BY id");
+            $stmt->execute();
+            $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $users;
+        }
+
+        public function deleteUser(int $user_id){
+            $stmt = $this->database->prepare("DELETE FROM User WHERE id = :id");
+            return $stmt->execute(['id' => $user_id]);
+        }
+
+        public function elevateUsertoAdmin(int $user_id){
+            $stmt = $this->database->prepare("UPDATE User SET isAdmin = 1 WHERE id = :id");
+            return $stmt->execute(['id' => $user_id]);
+        }
 
         public function setUserInfo(string $name, string $username, string $email, string $country, string $phoneNumber, int $userID) {
             $stmt = $this->database->prepare('

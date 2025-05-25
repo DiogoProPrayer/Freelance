@@ -10,7 +10,7 @@
     require_once (__DIR__ . '/../view/serviceDetailsView.php');
 
     drawServiceHeader();
-    drawTopBar($status);
+    drawTopBar($status,$isAdmin);         
     drawViewService($serviceInfo,$imagesService);
     drawServiceDetails($serviceInfo,$tagsService,$isOwner,$userId,$relatedServices);
     drawFooter();

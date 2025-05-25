@@ -1,4 +1,4 @@
-console.log('Status value before submit:');
+
 // Toggle edit profile form
 const editProfileBtn = document.getElementById('editProfileBtn');
 const editProfileForm = document.getElementById('editProfileForm');

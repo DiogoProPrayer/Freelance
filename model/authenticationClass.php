@@ -24,6 +24,11 @@
             $this->db = Database::getInstance(); 
         }
 
+        public function checkUserExists(string $username){
+            $stmt = $this->db->prepare('SELECT id FROM User WHERE username = ?');
+            $stmt->execute([$username]);
+            return $stmt->fetch() !== false;
+        }
         
         public function login(string $username,string $password){
             $stmt = $this->db->prepare('SELECT * FROM User WHERE username = :username');
@@ -33,10 +38,9 @@
             if ($user && password_verify($password, $user['passwordHash'])) {
                 $_SESSION['user_id'] = $user['id'];
                 $_SESSION['username'] = $user['username'];
-                header('Location: /');
-                exit;
+                return true;
             } else {
-                echo 'Invalid username or password';
+                return false;
             }
         }
 

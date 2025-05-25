@@ -3,15 +3,16 @@ declare(strict_types=1);
 require_once(__DIR__ . '/../model/authenticationClass.php');
 ?>
 
-<?php function drawTopBar($status) { ?>
+<?php function drawTopBar($status,$isAdmin) { ?>
     <header id="TopBar">
         <a href="/pages/homepage.php"> <img id="logo"  src="/images/logo2.png" width=80 height=80> </a>
-        <form action="search.php" method="get" role="search">
-            <input class="searchbar" type="search" name="search" placeholder="Search…">
+        <form method="get" role="search" class="search-wrapper" autocomplete="off">
+            <input id="search-input" class="searchbar" type="search" name="search" placeholder="Search…">
+            <div id="results-box"></div>
         </form>
         <nav class="user-nav">
             <ul id="user-controls">
-                <?php if (Authentication::getInstance()->getUser()) drawLogoutForm($status); else drawLoginForm(); ?>
+                <?php if (Authentication::getInstance()->getUser()) drawLogoutForm($status,$isAdmin); else drawLoginForm(); ?>
             </ul>
         </nav>
     </header>
@@ -22,11 +23,15 @@ require_once(__DIR__ . '/../model/authenticationClass.php');
     <li><a class="register" href="#" onclick="openAuthPopup('register')">Join Now</a></li>
 <?php } ?>
 
-<?php function drawLogoutForm($status) { ?>
+<?php function drawLogoutForm($status, $isAdmin) { ?>
+    <?php if ($isAdmin == 1): ?>
+        <li><a href="admin.php">Admin Panel</a></li>
+    <?php endif; ?>
+    <li><a href="/pages/messages.php">Messages</a></li>
     <li class="profile-dropdown">
         <div class="profile-icon">
             <a href="profile.php">
-            <img src="<?php echo htmlspecialchars(Authentication::getInstance()->getProfileImage())?>" alt="Avatar">
+            <img src="<?php echo htmlspecialchars(Authentication::getInstance()->getProfileImage() ?? '/images/art.jpg')?>" alt="Avatar">
             </a>
         </div>
         <ul class="dropdown-menu">
@@ -46,6 +51,7 @@ require_once(__DIR__ . '/../model/authenticationClass.php');
             <li>© 2023 Freelance Inc.</li>
         </ul>
     </footer>
+    <script src="/js/search.js"></script>
     </body>
     </html>
 <?php } ?>

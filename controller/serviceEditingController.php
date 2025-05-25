@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['deleteService'])) {
         $service->deleteService($serviceId);
         header('Location: profile.php?service_deleted=true');
-        exit;
+        exit;-*
     }
     // Detect if entire POST was dropped due to size
     if (empty($_POST) && !empty($_SERVER['CONTENT_LENGTH'])) {

@@ -9,9 +9,18 @@
             $this->database = $database;
         }
         
-        public function getCategoryIdbyName(string $name){
-            $dat = $this->database->prepare('SELECT id FROM Categories WHERE name = :name');
-            $dat->execute(['name' => $name]);
+        public function getCategoryNamebyId(int $id){
+            $dat = $this->database->prepare('SELECT name FROM Categories WHERE id = :id');
+            $dat->execute(['id' => $id]);
+
+            $result = $dat->fetch(PDO::FETCH_ASSOC);
+
+            return $result['name'] ?? null;
+        }
+
+        public function getCategoryIdbyName(string $categoryName){
+            $dat = $this->database->prepare('SELECT id FROM Categories WHERE LOWER(name) =  LOWER(:categoryName)');
+            $dat->execute(['categoryName' => $categoryName]);
 
             $result = $dat->fetch(PDO::FETCH_ASSOC);
 

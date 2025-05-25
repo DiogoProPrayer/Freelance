@@ -6,10 +6,7 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <title>Freelance</title>
         <link rel="icon" href="/images/logo2.png">
-        <link rel="stylesheet" href="/css/base.css">
-        <link rel="stylesheet" href="/css/header.css">
-        <link rel="stylesheet" href="/css/footer.css">
-        <link rel="stylesheet" href="/css/components.css">
+        <link rel="stylesheet" href="/css/common.css">
         <link rel="stylesheet" href="/css/profile.css">
         <script src="/js/profile.js" defer></script>
     </head>
@@ -49,7 +46,7 @@
             </div>
 
             <p class="user-country"><?php echo htmlspecialchars($user->getCountry() ?: 'No country specified'); ?></p>
-            <button id="editProfileBtn" class="btn btn-outline main-edit-btn">Edit Profile</button>
+            <button id="editProfileBtn" class="edit-btn main-edit-btn">Edit Profile</button>
         </div>
     </div>
 <?php } ?>
@@ -94,8 +91,8 @@
             </div>
 
             <div class="form-actions">
-                <button type="submit" name="update_profile" class="btn btn-primary save-btn">Save Changes</button>
-                <button type="button" id="cancelEditBtn" class="btn btn-outline cancel-btn">Cancel</button>
+                <button type="submit" name="update_profile" class="save-btn">Save Changes</button>
+                <button type="button" id="cancelEditBtn" class="cancel-btn">Cancel</button>
             </div>
         </form>
     </section>
@@ -108,14 +105,14 @@ function drawServiceCard($status,$services,$db) { ?>
         <section class="services-section">
             <div class="section-header">
                 <h2>My Services</h2>
-                <a href="/pages/creationService.php" class="btn btn-primary">Add New Service</a>
+                <a href="/pages/creationService.php" class="btn">Add New Service</a>
             </div>
             <?php if (empty($services)): ?>
                 <p class="no-data">You haven't added any services yet.</p>
             <?php else: ?>
                 <div class="service-cards">
                     <?php foreach ($services as $service): ?>
-                        <div class="card service-card">
+                        <div class="service-card">
                             <a href="/pages/service.php?id=<?php echo $service['id']; ?>" class="service-card-link" aria-label="View <?php echo htmlspecialchars($service['title']); ?>"></a>
                             <?php
                             $imgStmt = $db->prepare('SELECT image FROM ServiceImages WHERE service=:svc LIMIT 1');
@@ -163,7 +160,7 @@ function drawServiceCard($status,$services,$db) { ?>
 ?>
 
 <?php
-function drawOrderStatus($status,$sellerOrders) { ?>
+function drawOrderStatus($status,$sellerOrders,$orders) { ?>
     <div class="orders-content">
         <?php if ($status === 'seller'): ?>
             <section class="orders-section">
@@ -193,9 +190,12 @@ function drawOrderStatus($status,$sellerOrders) { ?>
                                     </td>
                                     <td><?php echo $order['rating'] ? htmlspecialchars($order['rating']) . ' ★' : 'Not rated'; ?></td>
                                     <td>
-                                        <a href="order.php?id=<?php echo htmlspecialchars($order['id']); ?>" class="btn view-btn">View</a>
+                                        <a href="../pages/orderDetails.php?id=<?php echo htmlspecialchars($order['id']); ?>" class="btn view-btn">View</a>
                                         <?php if ($order['orderStatus'] === 'IN_PROGRESS'): ?>
-                                            <a href="deliver-order.php?id=<?php echo htmlspecialchars($order['id']); ?>" class="btn deliver-btn">Deliver</a>
+                                            <form action="../controller/order_deleteController.php" method="post" class="order-form">
+                                                <input type="hidden" name="order_id" value="<?php echo $order['id']; ?>">
+                                                <button type="submit" class="btn view-btn" name="action" value="deliver" style="background-color: green;">Deliver</button>
+                                            </form>
                                         <?php endif; ?>
                                     </td>
                                 </tr>
@@ -220,7 +220,7 @@ function drawOrderStatus($status,$sellerOrders) { ?>
                                 <th>Seller</th>
                                 <th>Amount</th>
                                 <th>Status</th>
-                                <th>Date</th>
+                                <th>Delivery Time</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -230,14 +230,20 @@ function drawOrderStatus($status,$sellerOrders) { ?>
                                     <td>#<?php echo htmlspecialchars($order['id']); ?></td>
                                     <td><?php echo htmlspecialchars($order['service_title']); ?></td>
                                     <td><?php echo htmlspecialchars($order['seller_name']); ?></td>
-                                    <td>$<?php echo htmlspecialchars(number_format($order['amount'], 2)); ?></td>
+                                    <td>$<?php echo htmlspecialchars(number_format($order['price'], 2)); ?></td>
                                     <td class="status-<?php echo strtolower(htmlspecialchars($order['orderStatus'])); ?>">
                                         <?php echo htmlspecialchars($order['orderStatus']); ?>
                                     </td>
-                                    <td><?php echo htmlspecialchars(isset($order['order_date']) ? date("Y-m-d", strtotime($order['order_date'])) : 'N/A'); ?></td>
                                     <td>
-                                        <a href="order.php?id=<?php echo htmlspecialchars($order['id']); ?>" class="btn view-btn">View</a>
-                                        <?php if ($order['orderStatus'] === 'COMPLETED' && !$order['rating']): ?>
+                                        <?php if ($order['orderStatus'] === 'DELIVERED'): ?>
+                                            <?php echo htmlspecialchars(0) ?>
+                                        <?php endif; ?>
+                                        <?php if ($order['orderStatus'] !== 'DELIVERED'): ?>
+                                            <?php echo htmlspecialchars($s = $order['remaining_days'] <= 0 ? 0 :  $order['remaining_days']); ?></td>
+                                        <?php endif; ?>    
+                                    <td>
+                                        <a href="../pages/orderDetails.php?id=<?php echo htmlspecialchars($order['id']); ?>" class="btn view-btn">View</a>
+                                        <?php if ($order['orderStatus'] === 'DELIVERED' && !$order['rating']): ?>
                                             <a href="rate-order.php?id=<?php echo htmlspecialchars($order['id']); ?>" class="btn rate-btn">Rate</a>
                                         <?php endif; ?>
                                     </td>

@@ -6,11 +6,8 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <title>Freelance</title>
         <link rel="icon" href="/images/logo2.png">
-        <link rel="stylesheet" href="/css/base.css">
-        <link rel="stylesheet" href="/css/header.css">
-        <link rel="stylesheet" href="/css/footer.css">
-        <link rel="stylesheet" href="/css/components.css">
-        <link rel="stylesheet" href="/css/service.css">
+        <link rel="stylesheet" href="/css/common.css">
+        <link rel="stylesheet" href="/css/newservice.css">
     </head>
     <body>
 <?php } ?>
@@ -98,7 +95,7 @@
 
             <!-- Submit -->
             <div class="form-actions">
-                <button type="submit" class="btn btn-primary">Create Service</button>
+                <button type="submit">Create Service</button>
             </div>
         </form>
 </div>

@@ -11,7 +11,7 @@
     require_once(__DIR__ . '/../controller/sellerControler.php');   
 
     drawHomepageHeader();         
-    drawTopBar($status);         
+    drawTopBar($status,$isAdmin);         
     drawNavCategories($categories,$logged);
     drawSellers($topsellers);
     drawServices($popularServices);

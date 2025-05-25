@@ -21,17 +21,34 @@
     $status = $user->getUserStatus();
     $logged = $auth->getUser() ? true : false;
 
-    
-    $categoryid = (int) $_GET['category'] ?? null;
+    $max = $_GET['max'] ?? null;
+    $minRating = $_GET['rat'] ?? null;
+    $minOrders = $_GET['ord'] ?? null;
+    $categories = $_GET['categories'] ?? [];
+    $sort = $_GET['sort'] ?? 'none';
+    $order = $_GET['order'] ?? 'none';
 
+    $checkAsc = 0;
 
-    if ($categoryid === null) {
-        echo "Categoria não definida ou inválida.";
-        exit;
+    if (!empty($categories)) {
+        $categoryIds = [];
+        foreach ($categories as $categor) {
+            $id = $category->getCategoryIdbyName($categor);
+            if ($id !== null) {
+                $categoryIds[] = $id;
+            }
+        }
+        $categories = $categoryIds;
+    }
+
+    $serviceList = [];
+
+    if ($order == "Ascendent"){
+        $order = 'asc';
+    }
+    else if ($order == "Descendent"){
+        $order = 'desc';
     }
     
-    $categoryName = $category->getCategoryNamebyId($categoryid);
-
-
-    $serviceList = $service->getServicesbyCategory($categoryid);
+    $serviceList = $service->filterServices($categories, $max, $minRating, $minOrders, $sort, $order);
 ?>

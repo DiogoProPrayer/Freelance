@@ -12,7 +12,7 @@
     
 
     drawNewServiceHeader();
-    drawTopBar($status);
+    drawTopBar($status,$isAdmin);         
     drawNewService($tags,$categories);
     drawFooter();
 ?>

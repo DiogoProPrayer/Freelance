@@ -11,11 +11,11 @@
     require_once(__DIR__ . '/../controller/profileController.php');
 
     drawProfileHeader();
-    drawTopBar($status);
+    drawTopBar($status,$isAdmin);         
     drawProfileHead($status,$user);
     drawEditForm($user);
     drawServiceCard($status,$services,$db);
-    drawOrderStatus($status,$sellerOrders);
+    drawOrderStatus($status,$sellerOrders,$orders);
     drawFooter();
 
 ?>
