@@ -352,7 +352,7 @@
         }
         public function getPopularServices(){
             $popularServices=$this->database->prepare("
-            Select S.id, S.rating,S.Title,U.username,U.profileImage,S.price From Service S
+            Select S.id, S.rating,S.Title,U.username,U.profileImage,S.price, U.id as seller_id From Service S
             join User U on S.seller = U.id
             Where S.id in (Select service From ServiceOrder Group By service Order By Count(service) Desc Limit 10)
             ");

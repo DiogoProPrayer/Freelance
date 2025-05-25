@@ -14,8 +14,11 @@ require_once(__DIR__ . '/../model/authenticationClass.php');
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Freelance</title>
     <link rel="icon" href="/images/logo2.png">
-    <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="/css/homePage.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/homepage.css">
     <script src="/js/authPopup.js" defer></script>
   </head>
 
@@ -49,17 +52,19 @@ require_once(__DIR__ . '/../model/authenticationClass.php');
         </header>
         <div class=scrollable>
           <?php foreach ($topsellers as $seller): ?>
-            <article class="seller">
-              <img class="profile_pic" src="<?php echo htmlspecialchars($seller['profileImage']); ?>" alt="user">
-              <div class="information">
-                <div class="sellerName">
-                  <p>Username: <?php echo htmlspecialchars($seller['username']); ?></p>
+            <a href="/pages/profile.php?user_id=<?php echo htmlspecialchars($seller['id']); ?>" class="seller-link-wrapper">
+              <article class="seller">
+                <img class="profile_pic" src="<?php echo htmlspecialchars($seller['profileImage']); ?>" alt="user">
+                <div class="information">
+                  <div class="sellerName">
+                    <p>Username: <?php echo htmlspecialchars($seller['username']); ?></p>
+                  </div>
+                  <div class="sellerRating">
+                    <p>Rating: <?php echo number_format($seller['rating'], 1); ?></p>
+                  </div>
                 </div>
-                <div class="sellerRating">
-                  <p>Rating: <?php echo number_format($seller['rating'], 1); ?></p>
-                </div>
-              </div>
-            </article>
+              </article>
+            </a>
           <?php endforeach ?>
         </div>
       </section>
@@ -74,7 +79,7 @@ require_once(__DIR__ . '/../model/authenticationClass.php');
         </header>
         <div class="displayServices">
           <?php foreach ($popularServices as $service) : ?>
-            <article href="/pages/service.php?id=<?php echo $popularServices['id']; ?>">
+            <a href="/pages/service.php?id=<?php echo htmlspecialchars($service['id']); ?>" class="service-card-link">
               <ul class="ServiceImages">
                 <?php if (!empty($service['images'])) : ?>
                   <?php foreach ($service['images'] as $image): ?>
@@ -86,7 +91,9 @@ require_once(__DIR__ . '/../model/authenticationClass.php');
                 <?php endif; ?>
               </ul>
               <div id="information">
-                <img class="profile_pic2" src="<?php echo htmlspecialchars($service['profileImage'] ??'/images/art.jpg') ?>" alt="seller">
+                <a href="/pages/profile.php?user_id=<?php echo htmlspecialchars($service['seller_id']); ?>" class="service-seller-profile-link">
+                  <img class="profile_pic2" src="<?php echo htmlspecialchars($service['profileImage'] ??'/images/art.jpg') ?>" alt="seller">
+                </a>
                 <div class="service-details">
                   <div class="serviceTitle">
                     <p><?php echo htmlspecialchars($service['Title'] ?? 'Web development') ?></p>
@@ -102,7 +109,7 @@ require_once(__DIR__ . '/../model/authenticationClass.php');
                   </div>
                 </div>
               </div>
-            </article>
+            </a>
           <?php endforeach ?>
 
         </div>

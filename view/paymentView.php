@@ -4,12 +4,11 @@
 <head>
     <meta charset="UTF-8">
     <title>PaymentCard</title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/profile.css">
-    <link rel="stylesheet" href="../css/newservice.css">
-    <link rel="stylesheet" href="../css/service.css">
-    <link rel="stylesheet" href="../css/filter.css">
-    <link rel="stylesheet" href="../css/payment.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/payment.css">
 </head>
 <body>
     <header>

@@ -87,11 +87,11 @@ nav.user-nav a:hover {
     color: var(--color-text-primary);
     border-radius: var(--border-radius-md);
     box-shadow: 0 var(--spacing-sm) var(--spacing-md) rgba(0, 0, 0, 0.1);
-    min-width: 12em;
+    min-width: 12em; /* Default min-width for desktop */
     z-index: 1000;
     padding: 0; /* Remove padding if list items have their own */
     overflow: hidden; /* Ensures child border-radius is clipped */
-    margin-top: var(--spacing-xs); /* Small gap between icon and menu */
+    /* margin-top: var(--spacing-xs); */ /* Removed: gap is handled by 'top' property */
 }
 
 .profile-dropdown:hover .dropdown-menu,
@@ -175,27 +175,30 @@ nav.user-nav a:hover {
         gap: var(--spacing-md); /* Reduce gap on smaller screens */
     }
 
-    .profile-dropdown {
-        /* Ensure dropdown doesn't get cut off on mobile */
-        position: static; /* Or adjust 'right' property if it stays absolute */
-    }
+    /* .profile-dropdown { */
+        /* position: static; */ /* REMOVED: Let it remain position: relative */
+    /* } */
 
     .dropdown-menu {
-        /* Full width or centered dropdown on mobile for better usability */
-        left: 0;
-        right: 0;
-        min-width: auto;
-        width: calc(100% - 2 * var(--spacing-md)); /* Example: full width with padding */
-        margin-left: var(--spacing-md);
-        margin-right: var(--spacing-md);
-        top: calc(100% + var(--spacing-sm)); /* Adjust if profile-dropdown is static */
+        /* Centered dropdown menu for better mobile usability */
+        left: 50%;
+        transform: translateX(-50%);
+        right: auto; /* Override desktop 'right: 0' */
+        width: 90vw; /* Use viewport width percentage */
+        max-width: 350px; /* Max width to avoid being too wide on tablets */
+        min-width: 280px; /* Ensure it's wide enough for common items */
+        /* top: calc(100% + var(--spacing-xs)); */ /* top is inherited and should work correctly */
+        /* No change needed for top if .profile-dropdown remains relative.
+           If it needs adjustment from desktop's var(--spacing-xs) to var(--spacing-sm):
+           top: calc(100% + var(--spacing-sm)); */
+        margin-left: 0; /* Remove old margins */
+        margin-right: 0; /* Remove old margins */
     }
 
-    /* If profile-dropdown becomes static, adjust position of dropdown-menu */
-    nav.user-nav .profile-dropdown {
-        display: flex; /* Allow centering of the icon itself if needed */
-        justify-content: center;
-    }
+    /* nav.user-nav .profile-dropdown { */
+        /* display: flex; */ /* REMOVED: ul#user-controls already centers its li items */
+        /* justify-content: center; */
+    /* } */
     .profile-dropdown .profile-icon {
        /* Potentially add some margin if items are too close */
     }

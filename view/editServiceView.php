@@ -14,7 +14,10 @@ require_once(__DIR__ . '/../model/authenticationClass.php');
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <title>Freelance</title>
         <link rel="icon" href="/images/logo2.png">
-        <link rel="stylesheet" href="/css/common.css">
+        <link rel="stylesheet" href="/css/base.css">
+        <link rel="stylesheet" href="/css/components.css">
+        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/css/footer.css">
         <link rel="stylesheet" href="/css/editService.css">
         <script src="/js/authPopup.js" defer></script>
     </head>
