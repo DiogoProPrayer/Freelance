@@ -103,14 +103,20 @@ ul#category li.categories a:hover {
     background: #ccc; /* Slightly darker gray from variables if available */
 }
 
-#sellers article.seller {
-    /* Using .card style from components.css as a base */
+#sellers article.seller { /* Assuming this would become .card.seller-card in HTML */
+    /* background: var(--color-white); */ /* Inherited from .card */
+    /* border-radius: var(--border-radius-lg); */ /* Inherited from .card */
+    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); */ /* Inherited from .card */
+    /* overflow: hidden; */ /* Inherited from .card */
+    /* display: flex; */ /* Inherited from .card if needed, or handled by .seller-card */
+    /* flex-direction: column; */ /* Inherited from .card */
+    /* height: 100%; */ /* Inherited from .card */
     flex: 0 0 280px; /* Width for each seller card in the scrollable row */
-    /* scroll-snap-align: start; /* For snapping behavior (optional) */
-    /* Other .card styles like background, border-radius, box-shadow are inherited */
+    /* scroll-snap-align: start; */ /* For snapping behavior (optional) */
+    /* Add any specific overrides or additional styles for seller cards here */
 }
 
-#sellers article.seller .profile_pic {
+#sellers article.seller .profile_pic { /* This might become .card-image-container img */
     width: 100%;
     height: 200px;
     object-fit: cover;
@@ -157,34 +163,43 @@ ul#category li.categories a:hover {
     gap: var(--spacing-xl);
 }
 
-#services article {
-    /* This should use the .card style from components.css */
-    /* Styles like background, border-radius, box-shadow are inherited */
-    /* height: 100%; */ /* Already in .card, good for grid layout */
+#services article { /* Assuming this would become .card.service-card in HTML */
+    /* background: var(--color-white); */ /* Inherited from .card */
+    /* border-radius: var(--border-radius-lg); */ /* Inherited from .card */
+    /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); */ /* Inherited from .card */
+    /* overflow: hidden; */ /* Inherited from .card */
+    /* display: flex; */ /* Inherited from .card */
+    /* flex-direction: column; */ /* Inherited from .card */
+    /* height: 100%; */ /* Inherited from .card */
+    /* Add any specific overrides or additional styles for service cards here */
 }
 
 /* Assuming ServiceImages is a container like card-image-container */
-#services article .ServiceImages {
+#services article .ServiceImages { /* This would be .card-image-container */
     /* Default to card-image-container styles */
     /* If it's a gallery, specific styling would be needed here */
+    /* width: 100%; */ /* Inherited */
+    /* overflow: hidden; */ /* Inherited */
+    /* position: relative; */ /* Inherited */
 }
 
-#services article .ServiceImages img.service_images {
+#services article .ServiceImages img.service_images { /* This would be .card-image-container img */
     width: 100%;
     height: 220px; /* Fixed height for service images */
     object-fit: cover;
-    /* border-bottom: 1px solid var(--color-light-gray-border); */ /* Handled by card-image-container */
+    display: block; /* Remove bottom space, inherited from .card-image-container img */
+    /* border-bottom: 1px solid var(--color-light-gray-border); */ /* Potentially inherited or part of card structure */
 }
 
 /* Content area within the service card */
-#services article #information { /* Using this as the .card-content equivalent */
-    padding: var(--spacing-md);
+#services article #information { /* This would be .card-content */
+    padding: var(--spacing-md); /* Could be var(--spacing-lg) from .card-content */
     display: flex;
     flex-direction: column;
-    flex-grow: 1; /* Ensures this area takes up available space */
+    flex-grow: 1; 
 }
 
-#services article .profile_pic2 {
+#services article .profile_pic2 { /* This is a custom element within the card content */
     width: 40px;
     height: 40px;
     border-radius: 50%;

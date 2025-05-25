@@ -1,3 +1,22 @@
+<?php function drawOrderDetailsHeader($serviceInfo) { // Added $serviceInfo for title ?>
+<!DOCTYPE html>
+<html lang='en-US'>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Order Details - <?php echo htmlspecialchars($serviceInfo['title'] ?? 'Service'); ?> - Freelance</title>
+    <link rel="icon" href="/images/logo2.png">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/orderDetails.css"> <!-- Page-specific CSS -->
+    <!-- Font Awesome for icons, consider a local setup or CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+<?php } ?>
+
 <?php function drawViewService($serviceInfo,$imagesService){ ?>
     <?php 
     foreach ($imagesService as $index => $image) {
@@ -108,11 +127,11 @@
             <?php endif; ?>
 
             <div class="service-actions">
-                <form action="../controller/order_deleteController.php" method="post" class="order-form">
+                <form action="../controller/order_deleteController.php" method="post" class="order-form" style="display: inline;">
                     <input type="hidden" name="order_id" value="<?php echo $orderInfo['id']; ?>">
-                    <button type="submit" class="btn order-btn"  name="action" value="cancel" onclick="confirmCancel()">Cancel Order</button>
+                    <button type="submit" class="btn btn-danger"  name="action" value="cancel" onclick="confirmCancel()">Cancel Order</button>
                 </form>
-            <a href="../pages/messages.php?contact_id=<?php echo $serviceInfo['seller_id']; ?>" class="btn message-btn">
+            <a href="../pages/messages.php?contact_id=<?php echo $serviceInfo['seller_id']; ?>" class="btn btn-outline">
             Message <?php echo ($user_id == 'seller') ? 'seller' : 'buyer'; ?>
             </a>
             </div>

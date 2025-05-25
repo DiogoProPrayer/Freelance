@@ -1,3 +1,22 @@
+<?php function drawAdminHeader() { ?>
+<!DOCTYPE html>
+<html lang='en-US'>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Admin Panel - Freelance</title>
+    <link rel="icon" href="/images/logo2.png">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/admin.css"> <!-- Page-specific CSS -->
+    <!-- Font Awesome for icons, consider a local setup or CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+<?php } ?>
+
 <?php function drawAdminPage() { ?>
 <main class="admin-container">
     <div class="admin-sidebar">
@@ -60,13 +79,13 @@
                                     </td>
                                     <td class="actions-cell">
                                         <?php if (!$user['isAdmin']): ?>
-                                            <button class="promote-btn" data-user-id="<?php echo $user['id']; ?>">
+                                            <button class="btn btn-secondary promote-btn" data-user-id="<?php echo $user['id']; ?>">
                                                 <i class="fas fa-user-shield"></i> Promote
                                             </button>
                                         <?php endif; ?>
 
                                         <?php if ($user['id'] != $_SESSION['user_id']): ?>
-                                            <button class="delete-btn" data-user-id="<?php echo $user['id']; ?>">
+                                            <button class="btn btn-danger delete-btn" data-user-id="<?php echo $user['id']; ?>">
                                                 <i class="fas fa-trash"></i> Delete
                                             </button>
                                         <?php endif; ?>
@@ -100,10 +119,10 @@
                                 <p class="service-price"><?php echo number_format($service['price'], 2); ?>€</p>
                             </div>
                             <div class="service-list-actions">
-                                <a href="service.php?id=<?php echo $service['id']; ?>" class="view-btn">
+                                <a href="service.php?id=<?php echo $service['id']; ?>" class="btn btn-outline view-btn">
                                     <i class="fas fa-eye"></i> View
                                 </a>
-                                <button class="delete-service-btn" data-service-id="<?php echo $service['id']; ?>">
+                                <button class="btn btn-danger delete-service-btn" data-service-id="<?php echo $service['id']; ?>">
                                     <i class="fas fa-trash"></i> Delete
                                 </button>
                             </div>
@@ -156,7 +175,7 @@
 
                             <div class="review-actions">
                                 <?php if ($review['review']): ?>
-                                    <button class="delete-review-btn" data-review-id="<?php echo $review['id']; ?>">
+                                    <button class="btn btn-danger delete-review-btn" data-review-id="<?php echo $review['id']; ?>">
                                         <i class="fas fa-trash"></i> Delete Review Text
                                     </button>
                                 <?php endif; ?>
@@ -176,8 +195,8 @@
         <h2>Confirm Action</h2>
         <p id="confirmMessage"></p>
         <div class="modal-actions">
-            <button id="confirmButton" class="confirm-btn">Confirm</button>
-            <button id="cancelButton" class="cancel-btn">Cancel</button>
+            <button id="confirmButton" class="btn btn-primary confirm-btn">Confirm</button>
+            <button id="cancelButton" class="btn btn-outline cancel-btn">Cancel</button>
         </div>
     </div>
 </div>

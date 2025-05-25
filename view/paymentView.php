@@ -52,7 +52,7 @@
         <p>Value to Pay</p>
         <p><?php echo htmlspecialchars($serviceInfo['price']); ?> €</p>
     </div>
-    <button type="submit" id="submitBtn">Confirm Payment</button>
+    <button type="submit" id="submitBtn" class="btn btn-primary">Confirm Payment</button>
     <label>
         <input type="checkbox" name="terms" required> 
         I accept the Terms & Conditions

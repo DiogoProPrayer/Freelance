@@ -77,7 +77,7 @@
                     $serviceImages->uploadServiceImages($serviceId,$images);
                 }
 
-                header("Location: profile.php?service_created=true");
+                header("Location: ../pages/profile.php?service_created=true"); // Corrected path
                 exit;
                 
             }

@@ -1,0 +1,43 @@
+/* public_profile.css */
+
+/* Reusing .profile-container and .profile-header from profile.css for base layout */
+/* Add any specific tweaks for the public version if needed */
+
+.public-profile-container .profile-header {
+    /* Example: Different background or border for public view if desired */
+    /* background-color: var(--color-background-alt); */
+}
+
+.public-profile-container .user-bio {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    margin-top: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+    white-space: pre-wrap; /* Respect newlines in bio */
+}
+
+.public-profile-container .user-country {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-md);
+}
+
+
+.public-services-section .section-header h2 {
+    font-size: 1.5rem; /* Consistent with profile page section headers */
+    color: var(--color-primary-accent);
+    margin-bottom: var(--spacing-lg); /* Ensure space below header */
+}
+
+/* Service card styling is largely inherited from profile.css's .service-card and components.css's .card */
+/* No specific overrides needed here unless public view differs significantly */
+
+.public-services-section .no-data {
+    /* Styling for "no services" message, can reuse from profile.css if identical */
+    color: var(--color-text-secondary);
+    text-align: center;
+    padding: var(--spacing-xl);
+    background-color: var(--color-background);
+    border-radius: var(--border-radius-md);
+}

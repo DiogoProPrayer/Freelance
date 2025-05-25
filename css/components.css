@@ -314,3 +314,61 @@ select {
     /* list-style-type: disc; /* Default, but can be explicit if needed */
     /* No specific margin needed if list-style-position is inside */
 }
+
+
+/* 6. Pagination */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-xl); 
+    padding-top: var(--spacing-xl); 
+    border-top: 1px solid var(--color-light-gray-border); 
+}
+
+.pagination a,
+.pagination span {
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--color-light-gray-border);
+    border-radius: var(--border-radius-sm);
+    text-decoration: none;
+    color: var(--color-primary-accent);
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease; /* Added color transition */
+    min-width: 40px; 
+    text-align: center;
+}
+
+.pagination a:hover,
+.pagination a:focus { /* Added focus state */
+    background-color: var(--color-background); 
+    border-color: var(--color-primary-accent-hover);
+    color: var(--color-primary-accent-hover); /* Change text color on hover/focus */
+}
+
+.pagination span.current {
+    background-color: var(--color-primary-accent);
+    color: var(--color-white);
+    border-color: var(--color-primary-accent);
+    font-weight: bold;
+}
+
+.pagination span.disabled {
+    color: var(--color-text-secondary);
+    border-color: var(--color-light-gray-border);
+    background-color: var(--color-background); 
+    cursor: not-allowed;
+}
+
+/* Responsive Adjustments for Pagination */
+@media (max-width: 480px) {
+    .pagination {
+        gap: var(--spacing-xs);
+    }
+    .pagination a,
+    .pagination span {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        min-width: 30px;
+        font-size: 0.9rem; /* Slightly smaller font for smaller buttons */
+    }
+}

@@ -98,7 +98,7 @@
 
             <!-- Submit -->
             <div class="form-actions">
-                <button type="submit">Create Service</button>
+                <button type="submit" class="btn btn-primary">Create Service</button>
             </div>
         </form>
 </div>

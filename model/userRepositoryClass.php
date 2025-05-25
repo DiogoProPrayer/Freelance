@@ -75,5 +75,19 @@
             $topsellers->execute();
             return $topsellers->fetchAll(PDO::FETCH_ASSOC);
         }
+
+        public function getPublicProfileById(int $id): ?array {
+            // Fetches only publicly relevant information
+            // Added bio, country which might be relevant for a public profile
+            $stmt = $this->database->prepare('
+                SELECT id, name, username, profileImage, bio, country 
+                FROM User 
+                WHERE id = :id
+            ');
+            $stmt->execute(['id' => $id]);
+            $data = $stmt->fetch(PDO::FETCH_ASSOC);
+            // We return an array directly, not a User object, to control exposed fields
+            return $data ?: null;
+        }
     }
 ?>

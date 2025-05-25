@@ -1,0 +1,135 @@
+/* Styles for the Create New Service page */
+
+.new-service-container {
+    max-width: 800px;
+    margin: var(--spacing-xl) auto;
+    padding: var(--spacing-xl);
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+}
+
+.new-service-container h2 {
+    text-align: center;
+    color: var(--color-primary-accent);
+    margin-bottom: var(--spacing-xl);
+    font-family: var(--font-family-display);
+}
+
+/* Form elements (input, textarea, select) will inherit base styles from components.css */
+/* Labels will inherit from components.css if wrapped in .form-group, or use global label style */
+#serviceForm label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    font-weight: 500;
+    color: var(--color-text-secondary);
+}
+
+#serviceForm input[type="text"],
+#serviceForm input[type="number"],
+#serviceForm textarea,
+#serviceForm select {
+    margin-bottom: var(--spacing-lg); /* Add space below each form field */
+}
+
+/* Specific styling for tag checkboxes */
+.tag-checkboxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background-color: var(--color-background);
+    border-radius: var(--border-radius-md);
+    border: 1px solid var(--color-light-gray-border);
+}
+
+.tag-checkboxes div { /* Container for each checkbox and its label */
+    display: flex;
+    align-items: center;
+}
+
+.tag-checkboxes input[type="checkbox"] {
+    margin-right: var(--spacing-sm);
+    width: auto; /* Override components.css width:100% for checkboxes */
+}
+
+.tag-checkboxes label {
+    margin-bottom: 0; /* Override default label margin */
+    font-weight: normal; /* Lighter font for checkbox labels if desired */
+    color: var(--color-text-primary);
+    font-size: 0.9rem;
+}
+
+/* Image Drop Area */
+.drop-area {
+    border: 2px dashed var(--color-light-gray-border);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-xl);
+    text-align: center;
+    cursor: pointer;
+    background-color: var(--color-background);
+    transition: border-color 0.3s ease, background-color 0.3s ease;
+    margin-bottom: var(--spacing-lg);
+}
+
+.drop-area:hover,
+.drop-area.dragover { /* Add .dragover class via JS */
+    border-color: var(--color-primary-accent);
+    background-color: var(--color-white);
+}
+
+.drop-area #drop-text {
+    margin-bottom: var(--spacing-sm);
+    font-weight: 500;
+    color: var(--color-text-secondary);
+}
+
+.drop-area input[type="file"] {
+    display: none; /* Hidden, triggered by click on drop-area */
+}
+
+#preview {
+    margin-top: var(--spacing-md);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+}
+
+#preview .image-preview-item {
+    position: relative;
+    width: 100px;
+    height: 100px;
+}
+
+#preview .image-preview-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--color-light-gray-border);
+}
+
+#preview .image-preview-item .remove-image-btn {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: var(--color-error);
+    color: var(--color-white);
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+
+/* .form-actions styles are inherited from components.css */
+/* Ensure the button inside .form-actions uses .btn classes */
+#serviceForm .form-actions {
+    margin-top: var(--spacing-xl); /* Ensure consistent spacing */
+}

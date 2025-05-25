@@ -110,9 +110,9 @@ require_once(__DIR__ . '/../model/authenticationClass.php');
 
                     <!-- Submit -->
                     <div class="form-actions">
-                        <button type="submit" name="updateService">Update Service</button>
-                        <button type="submit" name="deleteService">Delete Service</button>
-                        <button type="submit" name="cancel">Cancel</button>
+                        <button type="submit" name="updateService" class="btn btn-primary">Update Service</button>
+                        <button type="submit" name="deleteService" class="btn btn-danger">Delete Service</button>
+                        <button type="submit" name="cancel" class="btn btn-outline">Cancel</button> <?php // Consider type="button" or an <a> tag for cancel ?>
                     </div>
                 </form>
             </div>

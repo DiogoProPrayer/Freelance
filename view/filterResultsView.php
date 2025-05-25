@@ -7,7 +7,6 @@
 <?php } ?>
 
 <?php function drawFilterOptions($categories) { ?>
-  <link rel="stylesheet" href="../styles/filter.css">
   <div class="filter-container">
     <form method="get" action="filter.php" id="filterForm">
         <div class="filter-main">
@@ -63,8 +62,8 @@
         </div>
 
         <div class="filter-buttons">
-            <button type="reset" class="btn-clear">Clear Filters</button>
-            <button type="submit" class="btn-apply">Apply Filters</button>   
+            <button type="reset" class="btn btn-outline">Clear Filters</button>
+            <button type="submit" class="btn btn-primary">Apply Filters</button>   
         </div>
     </form>
   </div>
@@ -78,43 +77,44 @@ function drawFilteredServices($status,$serviceList,$database) { ?>
         <?php if (empty($serviceList)): ?>
             <p class="no-data">This Category does't have any services</p>
         <?php else: ?>
-            <div class="service-cards">
+            <div class="service-cards"> <?php // This class can be renamed to service-list-grid to match css/filter.css ?>
                 <?php foreach ($serviceList as $service): ?>
-                    <div class="service-card">
-                        <a href="../pages/service.php?id=<?php echo $service['id']; ?>" class="service-card-link" aria-label="View <?php echo htmlspecialchars($service['title']); ?>"></a>
-                        <?php
-                            $imgStmt = $database->prepare('SELECT image FROM ServiceImages WHERE service=:svc LIMIT 1');
-                            $imgStmt->execute(['svc' => $service['id']]);
-                            $img = $imgStmt->fetchColumn() ?: '../images/default_service.jpg';
-                            if (!$img) {
-                                $img = '../images/default_service.jpg';
-                            } else {
-                                if (substr($img, 0, 3) !== '../') {
-                                    $img = '../' . $img;
-                                }
-                            }     
-                            ?>
-                            <div class="service-image">
-                                <img src="<?php echo htmlspecialchars($img); ?>" alt="Service Image">
-                            </div>
-                            
-                            <div class="service-details">
-                                <h3><?php echo htmlspecialchars($service['title']); ?></h3>
-                                <p class="service-description"><?php echo htmlspecialchars($service['description']); ?></p>
-                                
-                                <div class="service-meta">
-                                    <p class="price">$<?php echo htmlspecialchars(number_format($service['price'], 2)); ?></p>
-                                    <p class="rating">
-                                        <?php echo $service['average_rating'] ? number_format($service['average_rating'], 1) . ' ★' : 'Not rated'; ?>
-                                        (<?php echo $service['order_count']; ?> orders)
-                                    </p>
-                                </div>
-                                
-                                <div class="service-actions">
-                                    <a href="service.php?id=<?php echo $service['id']; ?>" class="btn view-btn">View</a>
-                                </div>
+                    <?php
+                        $service_page_url = "../pages/service.php?id=" . htmlspecialchars((string)($service['id'] ?? ''));
+                        $imgStmt = $database->prepare('SELECT image FROM ServiceImages WHERE service=:svc LIMIT 1');
+                        $imgStmt->execute(['svc' => $service['id']]);
+                        $img_path = $imgStmt->fetchColumn() ?: '../images/default_service.jpg';
+                        if (!$img_path) {
+                            $img_path = '../images/default_service.jpg';
+                        } else {
+                            if (substr($img_path, 0, 3) !== '../') {
+                                $img_path = '../' . $img_path;
+                            }
+                        }
+                    ?>
+                    <article class="card service-card-item">
+                        <div class="card-image-container">
+                            <a href="<?php echo $service_page_url; ?>">
+                                <img src="<?php echo htmlspecialchars($img_path); ?>" alt="<?php echo htmlspecialchars($service['title'] ?? 'Service Image'); ?>">
+                            </a>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title">
+                                <a href="<?php echo $service_page_url; ?>"><?php echo htmlspecialchars($service['title'] ?? 'Untitled Service'); ?></a>
+                            </h3>
+                            <p class="card-text service-description"><?php echo htmlspecialchars($service['description'] ?? ''); ?></p>
+                            <div class="service-meta"> <?php // Custom meta section for filter page cards ?>
+                                <p class="price">$<?php echo htmlspecialchars(number_format((float)($service['price'] ?? 0), 2)); ?></p>
+                                <p class="rating">
+                                    <?php echo ($service['average_rating'] ?? 0) ? number_format((float)$service['average_rating'], 1) . ' ★' : 'Not rated'; ?>
+                                    (<?php echo htmlspecialchars((string)($service['order_count'] ?? 0)); ?> orders)
+                                </p>
                             </div>
                         </div>
+                        <div class="card-actions">
+                            <a href="<?php echo $service_page_url; ?>" class="btn btn-primary">View Details</a>
+                        </div>
+                    </article>
                     <?php endforeach; ?>
                 </div>  
             <?php endif; ?>

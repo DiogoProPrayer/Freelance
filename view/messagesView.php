@@ -111,7 +111,7 @@
                             </div>
                             <div class="message-input">
                                 <textarea id="messageInput" placeholder="Type a message..."></textarea>
-                                <button id="sendMessage" class="transition rounded pad-md">Send</button>
+                                <button id="sendMessage" class="btn btn-primary">Send</button>
                             </div>
                         </div>
                     </section>

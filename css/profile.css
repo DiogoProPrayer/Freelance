@@ -273,32 +273,41 @@ input[type="file"].hidden { /* From subtask description */
     gap: var(--spacing-lg);
 }
 
-.service-card {
-    /* Uses .card from components.css */
-    display: flex; /* Ensure consistent flex behavior */
-    flex-direction: column; /* Ensure consistent flex direction */
+.service-card { /* Assuming this is used as .card.service-card in HTML */
+    /* display: flex; */ /* Inherited from .card in components.css */
+    /* flex-direction: column; */ /* Inherited from .card in components.css */
+    /* Other base .card styles like background, border-radius, box-shadow are inherited */
+    /* Add any specific overrides or additional styles for profile service cards here */
 }
 
-.service-card .service-image img { /* Assuming service-image is like card-image-container */
+.service-card .card-image-container img { /* Updated selector */
     height: 180px;
     object-fit: cover;
     width: 100%; /* Ensure image takes full width of its container */
 }
 
-.service-card .card-content { /* From components.css, ensure padding if needed */
-    padding: var(--spacing-md); /* Example padding */
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
+/* .service-card .card-content is styled by components.css base .card .card-content */
+/* Additional padding or specific flex properties for profile page cards can go here if needed: */
+.service-card .card-content {
+    padding: var(--spacing-md); /* Keep existing specific padding */
+    /* display: flex; flex-direction: column; flex-grow: 1; are inherited from .card */
 }
 
-.service-card .service-details h3 { /* Equivalent to .card-title */
-    font-size: 1.1em;
-    margin-bottom: var(--spacing-xs);
-    color: var(--color-primary-accent); /* Consistent with card titles */
+.service-card .card-content .card-title { /* Updated selector, assuming h3 has .card-title */
+    font-size: 1.1em; /* Keep specific font size */
+    /* margin-bottom: var(--spacing-xs); is inherited or similar from .card-title */
+    /* color: var(--color-primary-accent); is inherited from .card-title */
+}
+.service-card .card-content .card-title a { /* Ensure links within titles inherit color correctly */
+    color: inherit;
+    text-decoration: none;
+}
+.service-card .card-content .card-title a:hover {
+    text-decoration: underline;
 }
 
-.service-card .service-description { /* Equivalent to .card-text */
+
+.service-card .card-text.service-description { /* Updated selector */
     font-size: 0.9em;
     color: var(--color-text-secondary);
     margin-bottom: var(--spacing-sm);
@@ -338,14 +347,15 @@ input[type="file"].hidden { /* From subtask description */
 }
 
 
-.service-card .service-actions {
-    /* Uses .card-actions from components.css */
-    margin-top: auto; /* Push to bottom */
-    padding-top: var(--spacing-sm); /* Add padding if not in .card-actions */
-    border-top: 1px solid var(--color-light-gray-border); /* Add border if not in .card-actions */
+.service-card .card-actions {
+    /* Base styles from components.css .card-actions are applied */
+    /* These are overrides or additions for profile service cards */
+    margin-top: auto; 
+    padding-top: var(--spacing-sm); 
+    border-top: 1px solid var(--color-light-gray-border); 
 }
 
-.service-card .service-actions .btn {
+.service-card .card-actions .btn {
     /* Uses .btn from components.css */
     padding: var(--spacing-xs) var(--spacing-sm);
     font-size: 0.9em;

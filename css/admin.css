@@ -1,0 +1,341 @@
+/* Admin Page Specific Styles */
+
+/* Main Layout */
+.admin-container {
+    display: flex;
+    gap: var(--spacing-lg);
+    margin-top: var(--spacing-lg);
+    align-items: flex-start; /* Align items at the start of the cross axis */
+}
+
+.admin-sidebar {
+    width: 250px;
+    flex-shrink: 0; /* Prevent sidebar from shrinking */
+    background-color: var(--color-white);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.admin-sidebar h2 {
+    font-size: 1.5rem;
+    color: var(--color-primary-accent);
+    margin-top: 0;
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--color-light-gray-border);
+}
+
+.admin-nav a {
+    display: flex; /* Use flex for icon and text alignment */
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    border-radius: var(--border-radius-sm);
+    margin-bottom: var(--spacing-sm);
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.admin-nav a:hover {
+    background-color: var(--color-background);
+    color: var(--color-primary-accent);
+}
+
+.admin-nav a.active {
+    background-color: var(--color-primary-accent);
+    color: var(--color-white);
+    font-weight: 500;
+}
+
+.admin-nav a.active i { /* Ensure icon color contrasts with active background */
+    color: var(--color-white); 
+}
+
+.admin-nav a i {
+    width: 20px; /* Fixed width for icons */
+    text-align: center;
+    color: var(--color-text-secondary); /* Default icon color */
+}
+
+
+.admin-content {
+    flex-grow: 1;
+    background-color: var(--color-white);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Section Headers within Admin Content */
+.admin-header {
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px solid var(--color-light-gray-border);
+}
+
+.admin-header h1 {
+    font-size: 1.8rem;
+    color: var(--color-primary-accent);
+    margin-top: 0;
+    margin-bottom: var(--spacing-xs);
+}
+
+.admin-header p {
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    margin-bottom: 0;
+}
+
+/* Admin Table Styling */
+.admin-table-container {
+    overflow-x: auto; /* Allow table to scroll horizontally if needed */
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: var(--spacing-md);
+}
+
+.admin-table th,
+.admin-table td {
+    padding: var(--spacing-md);
+    text-align: left;
+    border-bottom: 1px solid var(--color-light-gray-border);
+    vertical-align: middle;
+}
+
+.admin-table th {
+    background-color: var(--color-background);
+    font-weight: 600;
+    color: var(--color-text-primary);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+}
+
+.admin-table td {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+}
+
+.admin-table .profile-cell img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.admin-table .actions-cell .btn { /* Using .btn classes from components.css */
+    margin-right: var(--spacing-xs);
+    margin-bottom: var(--spacing-xs); /* For wrapping on small screens */
+}
+.admin-table .actions-cell .btn i {
+    margin-right: var(--spacing-xs);
+}
+
+
+.admin-badge, .user-badge {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--border-radius-sm);
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.admin-badge {
+    background-color: var(--color-primary-accent);
+    color: var(--color-white);
+}
+
+.user-badge {
+    background-color: var(--color-secondary-accent);
+    color: var(--color-white);
+}
+
+/* Service List Styling (Admin Panel) */
+.services-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.service-list-item {
+    background-color: var(--color-background);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-md);
+    border: 1px solid var(--color-light-gray-border);
+    display: flex;
+    flex-direction: column;
+}
+
+.service-list-item .service-list-image img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: var(--border-radius-sm);
+    margin-bottom: var(--spacing-md);
+}
+
+.service-list-item .service-list-info h3 {
+    font-size: 1.1rem;
+    color: var(--color-primary-accent);
+    margin-top: 0;
+    margin-bottom: var(--spacing-xs);
+}
+
+.service-list-item .service-list-info p {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-xs);
+}
+.service-list-item .service-list-info .service-price {
+    font-weight: bold;
+    color: var(--color-primary-accent);
+}
+
+.service-list-item .service-list-actions {
+    margin-top: auto; /* Push actions to the bottom */
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--color-light-gray-border);
+    display: flex;
+    gap: var(--spacing-sm);
+}
+.service-list-item .service-list-actions .btn {
+    width: 100%; /* Make buttons take full width or adjust as needed */
+}
+
+
+/* Review Card Styling (Admin Panel) */
+.reviews-container {
+    display: grid;
+    gap: var(--spacing-lg);
+}
+
+.review-card {
+    background-color: var(--color-background);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-md);
+    border: 1px solid var(--color-light-gray-border);
+}
+
+.review-card .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
+    border-bottom: 1px solid var(--color-light-gray-border);
+}
+
+.review-card .review-service-info h3 {
+    font-size: 1.1rem;
+    margin-top: 0;
+    margin-bottom: var(--spacing-xs);
+}
+.review-card .review-service-info h3 a {
+    color: var(--color-primary-accent);
+    text-decoration: none;
+}
+.review-card .review-service-info h3 a:hover {
+    text-decoration: underline;
+}
+
+.review-card .review-buyer {
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+}
+
+.review-card .review-rating {
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+.review-card .review-rating .fas.fa-star { color: #f39c12; } /* Gold star */
+.review-card .review-rating .far.fa-star { color: #ccc; } /* Empty star */
+.review-card .review-rating .rating-value {
+    font-weight: bold;
+    color: var(--color-text-primary);
+    margin-left: var(--spacing-xs);
+}
+
+
+.review-card .review-content p {
+    font-size: 0.95rem;
+    color: var(--color-text-primary);
+    line-height: 1.6;
+    margin-bottom: var(--spacing-md);
+}
+.review-card .review-content p.no-review {
+    color: var(--color-text-secondary);
+    font-style: italic;
+}
+
+.review-card .review-actions {
+    margin-top: var(--spacing-md);
+    text-align: right;
+}
+
+/* Modal for confirmation */
+.modal { /* From drawConfirmModel() */
+    display: none; /* Hidden by default, JS will control visibility */
+    position: fixed;
+    z-index: 2000; /* Above everything else */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.5); /* Dim background */
+    display: flex; /* Use flex to center content */
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: var(--color-white);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    width: 100%;
+    max-width: 450px; /* Max width for the modal */
+    text-align: center;
+}
+
+.modal-content h2 {
+    margin-top: 0;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-primary-accent);
+}
+
+.modal-content p#confirmMessage {
+    margin-bottom: var(--spacing-lg);
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-md);
+}
+/* Buttons inside .modal-actions will use .btn styling */
+
+/* Responsive adjustments for Admin page */
+@media (max-width: 768px) {
+    .admin-container {
+        flex-direction: column;
+    }
+    .admin-sidebar {
+        width: 100%;
+        margin-bottom: var(--spacing-lg);
+    }
+    .admin-content {
+        /* Takes full width automatically */
+    }
+    .services-list {
+        grid-template-columns: 1fr; /* Stack service items on smaller screens */
+    }
+}

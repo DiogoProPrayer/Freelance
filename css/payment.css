@@ -1,0 +1,133 @@
+/* Styles for the Payment Page */
+
+/* Assuming the header is drawn by drawHeaderPayment() and might be simple */
+/* body > header {
+    text-align: center;
+    padding: var(--spacing-lg) 0;
+    border-bottom: 1px solid var(--color-light-gray-border);
+    margin-bottom: var(--spacing-xl);
+}
+body > header h1 {
+    color: var(--color-primary-accent);
+    font-family: var(--font-family-display);
+    margin: 0;
+} */
+
+#paymentForm {
+    max-width: 600px;
+    margin: var(--spacing-xl) auto;
+    padding: var(--spacing-xl);
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+}
+
+#paymentForm section {
+    margin-bottom: var(--spacing-xl);
+}
+
+#paymentForm h2 {
+    font-size: 1.3rem;
+    color: var(--color-primary-accent);
+    margin-bottom: var(--spacing-lg);
+    text-align: center;
+    font-family: var(--font-family-display);
+}
+
+/* Payment Method Selection */
+.payment-methods {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.payment-methods input[type="radio"] {
+    display: none; /* Hide actual radio button */
+}
+
+.payment-methods label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md);
+    border: 2px solid var(--color-light-gray-border);
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    min-width: 120px; /* Ensure labels have some width */
+}
+
+.payment-methods input[type="radio"]:checked + label {
+    border-color: var(--color-primary-accent);
+    box-shadow: 0 0 10px rgba(41, 26, 131, 0.2); /* Using var(--color-primary-accent) with alpha */
+}
+
+.payment-methods label img {
+    width: 60px; /* Adjust size as needed */
+    height: auto;
+    margin-bottom: var(--spacing-xs);
+}
+
+.payment-methods label span {
+    font-weight: 500;
+    color: var(--color-text-primary);
+}
+
+/* Form Sections for Card/MBWay details */
+.form-section { /* Default to hidden, JS will show the relevant one */
+    /* display: none; */ /* JS should handle initial display state */
+}
+/* input fields will inherit from components.css */
+#paymentForm input[type="text"],
+#paymentForm input[type="tel"] {
+    margin-bottom: var(--spacing-md);
+}
+
+
+/* Price Box */
+.price-box {
+    background-color: var(--color-background);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+    border: 1px solid var(--color-light-gray-border);
+}
+
+.price-box p:first-child {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.price-box p:last-child {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--color-primary-accent);
+    margin: 0;
+}
+
+/* Terms and Conditions Checkbox */
+#paymentForm > label { /* The label wrapping the terms checkbox */
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+}
+
+#paymentForm input[type="checkbox"] {
+    width: auto; /* Override default 100% width for checkboxes */
+    margin-right: var(--spacing-xs); /* Consistent with other checkbox uses */
+}
+
+
+/* Submit button is styled via .btn .btn-primary in the HTML */
+#paymentForm button#submitBtn {
+    width: 100%; /* Make submit button full width */
+    padding: var(--spacing-md) var(--spacing-lg); /* Larger padding for main action */
+    font-size: 1.1rem;
+}

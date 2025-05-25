@@ -7,6 +7,7 @@
     require_once (__DIR__ . '/../controller/userController.php');
     require_once (__DIR__ . '/../controller/categoryController.php');
     require_once (__DIR__ . '/../templates/common.php');
+    require_once(__DIR__ . '/../templates/filterPage.php');
     
     $isAjax = !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
           strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
@@ -19,7 +20,7 @@
     else {
         require_once (__DIR__ . '/../controller/filterController.php');
         require_once(__DIR__ . '/../view/filterResultsView.php');
-        drawHeader();
+        drawFilterPageHeader($categoryName); // Changed from drawHeader()
         drawTopBar($status,$isAdmin);         
         drawTitle($categoryName);
         drawFilterOptions($categories);

@@ -1,4 +1,4 @@
-/* Messages Page Specific Styles */
+/* Messages Page Specific Styles - Adopted from old messages.css */
 
 /* Overall Layout */
 html.messages-page-active, /* Class to be added to <html> */
@@ -17,7 +17,7 @@ main.messages-container { /* From messagesView.php */
     display: flex;
     flex: 1; /* Allow it to grow and fill space */
     overflow: hidden;
-    margin: var(--spacing-lg) 8%;
+    margin: var(--spacing-lg) 8%; /* Using margin from old messages.css */
     border-radius: var(--border-radius-lg);
     border: 1px solid var(--color-light-gray-border);
     background-color: var(--color-white);
@@ -65,9 +65,16 @@ main.messages-container { /* From messagesView.php */
 }
 
 .conversation-item:hover,
-.conversation-item.active {
-    background: #f5f6ff; /* Light blue/purple from example */
+.conversation-item.active { /* .active class should be preferred for selection state */
+    background: #f5f6ff; /* Light blue/purple from example - consider var(--color-background-hover) or similar */
 }
+/* Ensure text in active item is readable if background changes significantly */
+.conversation-item.active .username,
+.conversation-item.active .time,
+.conversation-item.active .message-preview {
+    color: var(--color-text-primary); /* Default, adjust if .active bg is dark */
+}
+
 
 .no-conversations {
     padding: var(--spacing-xl);
@@ -176,49 +183,47 @@ main.messages-container { /* From messagesView.php */
     width: 100%;
     left:0; /* Ensure it spans full width */
     right:0; /* Ensure it spans full width */
+    gap: var(--spacing-md); /* Gap between message bubbles */
 }
 
-.message {
+/* Renamed .message to .message-bubble for clarity and consistency with my previous attempt */
+.message-bubble { /* Was .message in old messages.css */
     max-width: 70%;
-    margin-bottom: var(--spacing-md);
+    margin-bottom: 0; /* Gap is handled by .messages-list */
     padding: var(--spacing-sm) var(--spacing-md);
     border-radius: var(--border-radius-lg);
     position: relative;
     word-wrap: break-word;
     overflow-wrap: break-word;
-    /* white-space: normal; Removed, this is default */
     line-height: 1.4;
 }
 
-.message.sent {
+.message-bubble.sent { /* Was .message.sent */
     align-self: flex-end;
     background-color: var(--color-primary-accent);
     color: var(--color-white);
     border-bottom-right-radius: var(--border-radius-sm);
-    /* text-align: right; Not needed if align-self is used, content aligns naturally */
 }
 
-.message.received {
+.message-bubble.received { /* Was .message.received */
     align-self: flex-start;
-    background-color: #e8e8e8; /* Light gray from example */
+    background-color: #e8e8e8; /* Light gray from example, consider var(--color-light-gray-border) or similar */
     color: var(--color-text-primary);
     border-bottom-left-radius: var(--border-radius-sm);
-    /* text-align: left; Not needed if align-self is used */
 }
 
-.message p {
+.message-bubble p { /* If messages are wrapped in <p> inside bubble */
     margin: 0;
 }
 
-.message .timestamp {
+.message-bubble .timestamp { /* Was .message .timestamp */
     display: block;
     font-size: 0.7rem;
     margin-top: var(--spacing-xs);
     opacity: 0.8;
-    /* For sent messages, align timestamp right, for received, left */
 }
-.message.sent .timestamp { text-align: right; }
-.message.received .timestamp { text-align: left; }
+.message-bubble.sent .timestamp { text-align: right; color: var(--color-header-text); opacity: 0.7; }
+.message-bubble.received .timestamp { text-align: left; color: var(--color-text-secondary); }
 
 
 .message-input { /* Container for textarea and send button */
@@ -258,14 +263,8 @@ main.messages-container { /* From messagesView.php */
     box-shadow: 0 0 0 2px rgba(41, 26, 131, 0.1); /* Subtle focus ring */
 }
 
-.message-input button { /* Uses .btn from components.css, can add specifics */
+.message-input button { /* Uses .btn from components.css, updated in view */
     margin-left: var(--spacing-md);
-    padding: var(--spacing-sm) var(--spacing-lg); /* Ensure padding is consistent */
-    min-width: auto; /* Override .btn min-width if needed for just an icon button */
-    /* Example for an icon button:
-    font-size: 1.2rem;
-    padding: var(--spacing-sm);
-    */
 }
 
 /* Chat Placeholder (.chat-placeholder) */
@@ -282,7 +281,7 @@ main.messages-container { /* From messagesView.php */
     height: 100%; /* Ensure it takes full height of chat-area if no messages */
 }
 
-.chat-placeholder img {
+.chat-placeholder img.placeholder-image { /* Class from view */
     width: 160px;
     max-width: 50%; /* Prevent image from being too large on small screens */
     opacity: 0.3;
@@ -296,14 +295,6 @@ main.messages-container { /* From messagesView.php */
 }
 .chat-placeholder p {
     font-size: 1em;
-}
-
-
-/* Sticky Footer Consideration for Messages Page */
-body.messages-page-active footer {
-    /* Styles from footer.css will apply */
-    /* Ensure it's at the bottom if .messages-wrapper is 100vh */
-    /* This is handled by .messages-wrapper flex properties */
 }
 
 /* Responsive adjustments for messages page */
@@ -349,8 +340,6 @@ body.messages-page-active footer {
         /* Fallback if CSS variables for header/footer height are not set: */
         min-height: 500px; /* Ensure it has some height when sidebar is small */
     }
-
-    /* .messages-list top/bottom remain the same as they are relative to .chat-area's header/input */
 }
 
 @media (max-width: 480px) {
@@ -368,11 +357,11 @@ body.messages-page-active footer {
     .message-preview { font-size: 0.85rem; }
 
 
-    .message {
+    .message-bubble { /* Was .message */
         max-width: 85%;
         padding: var(--spacing-xs) var(--spacing-sm);
     }
-    .message .timestamp { font-size: 0.65rem; }
+    .message-bubble .timestamp { font-size: 0.65rem; }
 
     .chat-header {
         height: 50px;
@@ -400,7 +389,7 @@ body.messages-page-active footer {
         padding: var(--spacing-xs) var(--spacing-sm);
     }
 
-    .chat-placeholder img { width: 120px; }
+    .chat-placeholder img.placeholder-image { width: 120px; }
     .chat-placeholder h3 { font-size: 1.3em; }
     .chat-placeholder p { font-size: 0.9em; }
 }

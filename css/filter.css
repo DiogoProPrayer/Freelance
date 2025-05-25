@@ -1,5 +1,101 @@
 /* CSS rules for the filter/category results page */
 
+/* 0. Filter Form Specific Styling */
+.filter-container { /* The main wrapper for the filter options form */
+    background-color: var(--color-white);
+    padding: var(--spacing-lg);
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: var(--spacing-xl);
+}
+
+.filter-main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-lg);
+}
+
+.filter-categories {
+    flex: 1 1 300px; /* Allow categories to take space and wrap */
+    padding-right: var(--spacing-lg); /* Space if next to controls */
+    border-right: 1px solid var(--color-light-gray-border); /* Separator on larger screens */
+}
+.filter-categories p { /* "Choose Categories:" text */
+    font-weight: 500;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text-primary);
+}
+.category-label { /* Label for each checkbox */
+    display: block; /* Or flex for better alignment if icons were added */
+    margin-bottom: var(--spacing-sm);
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+}
+.category-label input[type="checkbox"] {
+    margin-right: var(--spacing-sm);
+    /* Uses default browser styling for checkboxes, or could be custom styled */
+}
+.category-label:hover {
+    color: var(--color-primary-accent);
+}
+
+
+.filter-controls .filter-group { /* Group for sort, order, price, rating etc. */
+    margin-bottom: var(--spacing-lg);
+}
+.filter-controls .filter-group:last-child {
+    margin-bottom: 0;
+}
+
+.filter-controls .filter-group label {
+    /* Uses .form-group label style from components.css if wrapped in .form-group */
+    /* If not, define here or ensure consistency */
+    display: block;
+    margin-bottom: var(--spacing-xs);
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    font-size: 0.9rem;
+}
+
+.filter-controls .filter-group input[type="number"],
+.filter-controls .filter-group select {
+    /* These will inherit from components.css */
+    margin-bottom: var(--spacing-sm); /* Space below each input/select in a group */
+    width: 100%; /* Ensure they take full width of their container */
+}
+
+.filter-buttons {
+    display: flex;
+    justify-content: flex-end; /* Align buttons to the right */
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+    padding-top: var(--spacing-lg);
+    border-top: 1px solid var(--color-light-gray-border);
+}
+/* Buttons themselves (.btn, .btn-primary, .btn-outline) are styled in components.css */
+
+
+/* Responsive adjustments for filter form */
+@media (max-width: 768px) {
+    .filter-main {
+        flex-direction: column;
+    }
+    .filter-categories {
+        border-right: none; /* Remove border on smaller screens */
+        padding-right: 0;
+        margin-bottom: var(--spacing-lg); /* Space below categories when stacked */
+    }
+    .filter-buttons {
+        justify-content: center; /* Center buttons on smaller screens */
+    }
+    .filter-buttons .btn {
+        flex-grow: 1; /* Allow buttons to take more space */
+        max-width: 200px; /* But not too wide */
+    }
+}
+
+
 /* 1. Page Container and Header */
 body.filter-page-active {
     /* This class should be added to the body tag via PHP on filter.php */
@@ -77,44 +173,53 @@ main.filter-results-container > header h1::after {
 
 
 /* 3. Service List / Results Display */
-.service-list-grid {
+.service-list-grid { /* Renamed from .service-cards in HTML to match this */
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: var(--spacing-xl);
 }
 
-/* Each service item in the grid should be an <article class="card service-card-item"> or similar */
-.service-card-item {
-    /* Uses .card from components.css */
-    /* Specific overrides for filter page cards can go here if needed */
+/* Each service item in the grid is an <article class="card service-card-item"> */
+.service-card-item { /* Class for specific overrides on filter page cards */
+    /* Base styles are from .card in components.css */
 }
 
-.service-card-item .card-image-container img { /* Assuming .card-image-container is used */
-    height: 200px;
+.service-card-item .card-image-container img {
+    height: 200px; /* Custom height for images on filter page */
     object-fit: cover;
 }
 
-.service-card-item .card-content h3.card-title {
-    font-size: 1.1em; /* Adjust if needed, .card-title from components.css is 1.25rem */
+.service-card-item .card-content .card-title { /* Targeting .card-title specifically */
+    font-size: 1.1rem; /* Slightly smaller title for filter cards */
     /* Other .card-title styles (font-weight, margin) will be inherited */
 }
 
-.service-card-item .card-text.seller-name {
-    font-size: 0.9em;
-    color: var(--color-text-secondary);
-    margin-bottom: var(--spacing-xs);
+.service-card-item .card-content .service-description { /* Custom class for description */
+    font-size: 0.9rem;
+    margin-bottom: var(--spacing-sm);
+    /* Add line-clamp if needed */
 }
 
-.service-card-item .card-text.service-price {
-    font-size: 1.1em;
+
+.service-card-item .card-content .service-meta { /* Custom class for price/rating block */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: var(--spacing-sm);
+    font-size: 0.9rem;
+}
+.service-card-item .card-content .service-meta .price {
     font-weight: bold;
     color: var(--color-primary-accent);
-    margin-top: var(--spacing-sm); /* Space above price */
+    font-size: 1.1rem; 
+}
+.service-card-item .card-content .service-meta .rating {
+    color: var(--color-text-secondary);
 }
 
-.service-card-item .card-actions .btn {
-    /* Uses .btn from components.css */
-    width: 100%; /* Example: make button full width in card */
+
+.service-card-item .card-actions .btn { /* Targeting .btn within card-actions */
+    width: 100%; /* Make button full width in card */
 }
 
 /* 4. No Results Message */
@@ -138,46 +243,7 @@ main.filter-results-container > header h1::after {
 }
 
 /* 5. Pagination (if implemented later) */
-.pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: var(--spacing-sm);
-    margin-top: var(--spacing-xl); /* Space above pagination */
-    padding-top: var(--spacing-xl); /* More space if there's a border above */
-    border-top: 1px solid var(--color-light-gray-border); /* Separator */
-}
-
-.pagination a,
-.pagination span {
-    padding: var(--spacing-sm) var(--spacing-md);
-    border: 1px solid var(--color-light-gray-border);
-    border-radius: var(--border-radius-sm);
-    text-decoration: none;
-    color: var(--color-primary-accent);
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-    min-width: 40px; /* Ensure consistent width for numbers */
-    text-align: center;
-}
-
-.pagination a:hover {
-    background-color: var(--color-background); /* Light background on hover */
-    border-color: var(--color-primary-accent-hover);
-}
-
-.pagination span.current {
-    background-color: var(--color-primary-accent);
-    color: var(--color-white);
-    border-color: var(--color-primary-accent);
-    font-weight: bold;
-}
-
-.pagination span.disabled {
-    color: var(--color-text-secondary);
-    border-color: var(--color-light-gray-border);
-    background-color: var(--color-background); /* Make it look clearly disabled */
-    cursor: not-allowed;
-}
+/* Styles moved to components.css */
 
 /* Responsive Adjustments for Filter Page */
 @media (max-width: 768px) {
@@ -221,12 +287,5 @@ main.filter-results-container > header h1::after {
         flex-grow: 1; /* Allow buttons to share space */
     }
 
-    .pagination {
-        gap: var(--spacing-xs);
-    }
-    .pagination a,
-    .pagination span {
-        padding: var(--spacing-xs) var(--spacing-sm);
-        min-width: 30px;
-    }
+    /* Pagination responsive styles moved to components.css */
 }

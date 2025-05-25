@@ -24,19 +24,22 @@ require_once(__DIR__ . '/../model/authenticationClass.php');
 <?php } ?>
 
 <?php function drawLogoutForm($status, $isAdmin) { ?>
-    <?php if ($isAdmin == 1): ?>
-        <li><a href="admin.php">Admin Panel</a></li>
-    <?php endif; ?>
-    <li><a href="/pages/messages.php">Messages</a></li>
+    <?php // Admin Panel link is now inside the dropdown ?>
+    <li><a href="/pages/messages.php">Messages</a></li> <?php // Messages link remains in the top bar ?>
     <li class="profile-dropdown">
         <div class="profile-icon">
-            <a href="profile.php">
+            <a href="#" onclick="return false;"> <?php // Made profile icon non-navigable, dropdown is the interaction point ?>
             <img src="<?php echo htmlspecialchars(Authentication::getInstance()->getProfileImage() ?? '/images/art.jpg')?>" alt="Avatar">
             </a>
         </div>
         <ul class="dropdown-menu">
+            <?php if ($isAdmin == 1): ?>
+                <li><a href="/pages/admin.php">Admin Panel</a></li> <?php // Moved here, points to pages/admin.php ?>
+            <?php endif; ?>
+            <li><a href="/pages/profile.php">Profile</a></li> <?php // Added Profile link ?>
+            <li><a href="/pages/messages.php">Messages</a></li> <?php // Duplicated Messages link inside dropdown for convenience ?>
+            <li><hr class="dropdown-divider"></li> <?php // Optional divider ?>
             <li><a href="/controller/logoutController.php" class="logout">Logout</a></li>
-            <li><a href="/pages/messages.php">Messages</a></li>
         </ul>
     </li>
 <?php } ?>
@@ -44,12 +47,14 @@ require_once(__DIR__ . '/../model/authenticationClass.php');
 
 <?php function drawFooter() { ?>
     <footer>
-        <ul class="footer-items">
-            <li>About us</li>
-            <li>Contact us at support@freelance.com</li>
-            <li>Follow us on social media</li>
-            <li>© 2023 Freelance Inc.</li>
-        </ul>
+        <div class="footer-content">
+            <ul class="footer-items">
+                <li><a href="#">About us</a></li>
+                <li><a href="mailto:support@freelance.com">Contact us</a></li> 
+                <li><a href="#">Follow us</a></li> 
+            </ul>
+            <p class="copyright">© <?php echo date("Y"); ?> Freelance Inc.</p>
+        </div>
     </footer>
     <script src="/js/search.js"></script>
     </body>

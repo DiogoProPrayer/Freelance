@@ -142,15 +142,28 @@ require_once(__DIR__ . '/../model/authenticationClass.php');
 
       <div id="registerForm" class="form-wrapper">
         <h3>Register</h3>
+        <?php 
+            $auth_error = $_SESSION['auth_error'] ?? null;
+            $form_values = $_SESSION['form_values'] ?? [];
+            $show_auth_form = $_SESSION['show_auth'] ?? null;
+
+            if ($auth_error && $show_auth_form === 'register') {
+                echo '<div class="alert error" style="display:block; margin-bottom: var(--spacing-md);"><p>' . htmlspecialchars($auth_error) . '</p></div>';
+            }
+            // Clear them after displaying so they don't persist
+            unset($_SESSION['auth_error']);
+            unset($_SESSION['form_values']); // Or unset specific fields as they are used
+            // $_SESSION['show_auth'] should be cleared by JS after opening the popup
+        ?>
         <form action="../controller/registerController.php" method="post">
-          <input type="text" name="name" placeholder="Name" required>
-          <input type="text" name="username" placeholder="Username" required>
-          <input type="email" name="email" placeholder="Email" required>
+          <input type="text" name="name" placeholder="Name" value="<?php echo htmlspecialchars($form_values['name'] ?? ''); ?>" required>
+          <input type="text" name="username" placeholder="Username" value="<?php echo htmlspecialchars($form_values['username'] ?? ''); ?>" required>
+          <input type="email" name="email" placeholder="Email" value="<?php echo htmlspecialchars($form_values['email'] ?? ''); ?>" required>
           <input type="password" name="password" placeholder="Password" required>
           <input type="password" name="confirm_password" placeholder="Confirm Password" required>
           <select name="userStatus">
-            <option value="client">Client</option>
-            <option value="seller">Seller</option>
+            <option value="client" <?php echo (isset($form_values['userStatus']) && $form_values['userStatus'] === 'client') ? 'selected' : ''; ?>>Client</option>
+            <option value="seller" <?php echo (isset($form_values['userStatus']) && $form_values['userStatus'] === 'seller') ? 'selected' : ''; ?>>Seller</option>
           </select>
           <button class="submit" type="submit">Register</button>
         </form>
@@ -160,3 +173,23 @@ require_once(__DIR__ . '/../model/authenticationClass.php');
       </div>
     </div>
   <?php } ?>
+
+  <?php
+    // Script to automatically open popup if show_auth is set (e.g., after failed registration)
+    if (isset($_SESSION['show_auth']) && $_SESSION['show_auth']) {
+        echo "<script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    openAuthPopup('" . htmlspecialchars($_SESSION['show_auth']) . "');
+                    " . (isset($_SESSION['auth_error']) ? "/* Error already displayed by PHP */" : "") . "
+                    delete " . json_encode($_SESSION['show_auth']) ."; /* Clear after use, but PHP session_unset is better */
+                });
+              </script>";
+        // It's better to unset PHP session variables after they are used and outputted to JS.
+        // However, since this is a simple echo, direct unsetting here is tricky.
+        // The controller should handle unsetting $_SESSION['show_auth'] after a successful action or display.
+        // For now, JS can try to clear it, or PHP on next full load if not used by JS.
+        // Ideally, clear in controller or just before rendering view if possible.
+        // For this specific case, we can unset it here as it has served its purpose for this page load.
+        unset($_SESSION['show_auth']); 
+    }
+  ?>

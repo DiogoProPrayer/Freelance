@@ -113,7 +113,7 @@
                 </div>
 
                 <div class="seller-info">
-                    <a href="../pages/profile.php?id=<?php echo $serviceInfo['seller_id']; ?>" class="seller-link">
+                    <a href="/pages/public_profile.php?user_id=<?php echo $serviceInfo['seller_id']; ?>" class="seller-link">
                         <img src="<?php echo htmlspecialchars($serviceInfo['seller_image'] ?? '../images/default_user.jpg'); ?>" alt="<?php echo htmlspecialchars($serviceInfo['seller_name']); ?>">
                         <div class="seller-text">
                             <span class="seller-name"><?php echo htmlspecialchars($serviceInfo['seller_name']); ?></span>
@@ -139,16 +139,16 @@
 
                 <div class="service-actions">
                     <?php if ($isOwner): ?>
-                        <a href="edit-service.php?id=<?php echo $serviceInfo['id']; ?>" class="btn edit-btn">Edit Service</a>
+                        <a href="edit-service.php?id=<?php echo $serviceInfo['id']; ?>" class="btn btn-secondary">Edit Service</a>
                     <?php else: ?>
                         <?php if ($userId): ?>
-                            <form action="../pages/paymentOrder.php?id=<?php echo $serviceInfo['id']; ?>" method="post" class="order-form">
+                            <form action="../pages/paymentOrder.php?id=<?php echo $serviceInfo['id']; ?>" method="post" class="order-form" style="display: inline;">
                                 <input type="hidden" name="service_id" value="<?php echo $serviceInfo['id']; ?>">
-                                <button type="submit" class="btn order-btn">Order Now</button>
+                                <button type="submit" class="btn btn-primary">Order Now</button>
                             </form>
-                            <a href="/pages/messages.php?contact_id=<?php echo $serviceInfo['seller_id']; ?>" class="btn message-btn">Message Seller</a>
+                            <a href="/pages/messages.php?contact_id=<?php echo $serviceInfo['seller_id']; ?>" class="btn btn-outline">Message Seller</a>
                         <?php else: ?>
-                            <a href="#" onclick="openAuthPopup('login')" class="btn login-to-order-btn">Login to Order</a>
+                            <a href="#" onclick="openAuthPopup('login')" class="btn btn-primary">Login to Order</a>
                         <?php endif; ?>
                     <?php endif; ?>
                 </div>
@@ -157,17 +157,23 @@
         <?php if (!empty($relatedServices)): ?>
             <div class="related-services">
                 <h2>Similar Services</h2>
-                <div class="related-service-cards">
+                <div class="related-service-cards"> <?php // This class provides the grid layout, styled in service.css ?>
                     <?php foreach ($relatedServices as $relatedService): ?>
-                        <a href="service.php?id=<?php echo $relatedService['id']; ?>" class="related-service-card">
-                            <div class="related-service-image">
-                                <img src="<?php echo htmlspecialchars($relatedService['image'] ?? '../images/default_service.jpg'); ?>" alt="Related Service">
+                        <?php $related_service_url = "service.php?id=" . htmlspecialchars((string)($relatedService['id'] ?? '')); ?>
+                        <article class="card related-service-card"> <?php // Changed a to article and added .card base class ?>
+                            <div class="card-image-container"> <?php // Was related-service-image ?>
+                                <a href="<?php echo $related_service_url; ?>">
+                                    <img src="<?php echo htmlspecialchars($relatedService['image'] ?? '../images/default_service.jpg'); ?>" alt="<?php echo htmlspecialchars($relatedService['title'] ?? 'Related Service'); ?>">
+                                </a>
                             </div>
-                            <div class="related-service-details">
-                                <h3 class="related-title"><?php echo htmlspecialchars($relatedService['title']); ?></h3>
-                                <span class="related-price">$<?php echo number_format($relatedService['price'], 2); ?></span>
+                            <div class="card-content"> <?php // Was related-service-details ?>
+                                <h3 class="card-title">
+                                    <a href="<?php echo $related_service_url; ?>"><?php echo htmlspecialchars($relatedService['title'] ?? 'Untitled Service'); ?></a>
+                                </h3>
+                                <span class="card-text related-price">$<?php echo number_format((float)($relatedService['price'] ?? 0), 2); ?></span> <?php // Added card-text for base styling ?>
                             </div>
-                        </a>
+                            <?php // No card-actions div by default for related services, but could be added if needed ?>
+                        </article>
                     <?php endforeach; ?>
                 </div>
             </div>

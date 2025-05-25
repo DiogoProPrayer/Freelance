@@ -18,13 +18,42 @@
 
 <?php function drawProfileHead($status,$user) { ?>
 <main class="profile-container">
-    <?php if (isset($_GET['updated']) && $_GET['updated'] === 'true'): ?>
+    <?php 
+    // Generic message display
+    if (isset($_GET['service_created']) && $_GET['service_created'] === 'true') {
+        echo '<div class="alert success">Service created successfully!</div>';
+    }
+    if (isset($_GET['service_updated']) && $_GET['service_updated'] === 'true') {
+        echo '<div class="alert success">Service updated successfully!</div>';
+    }
+    if (isset($_GET['service_deleted_profile']) && $_GET['service_deleted_profile'] === 'true') {
+        echo '<div class="alert success">Service deleted successfully!</div>';
+    }
+    // Profile specific updates
+    if (isset($_GET['updated']) && $_GET['updated'] === 'true'): ?>
         <div class="alert success">Profile updated successfully!</div>
     <?php endif; ?>
 
     <?php if (isset($_GET['status_updated']) && $_GET['status_updated'] === 'true'): ?>
         <div class="alert success">Account mode updated successfully!</div>
     <?php endif; ?>
+
+    <?php 
+    // Error messages
+    if (isset($_GET['error'])) {
+        $errorMessage = 'An unknown error occurred.';
+        switch ($_GET['error']) {
+            case 'delete_id_mismatch':
+                $errorMessage = 'Error deleting service: ID mismatch.';
+                break;
+            case 'delete_unauthorized':
+                $errorMessage = 'Error deleting service: Unauthorized.';
+                break;
+            // Add more specific error cases if needed
+        }
+        echo '<div class="alert error">' . htmlspecialchars($errorMessage) . '</div>';
+    }
+    ?>
 
     <div class="profile-header">
         <div class="profile-avatar">
@@ -49,7 +78,7 @@
             </div>
 
             <p class="user-country"><?php echo htmlspecialchars($user->getCountry() ?: 'No country specified'); ?></p>
-            <button id="editProfileBtn" class="edit-btn main-edit-btn">Edit Profile</button>
+            <button id="editProfileBtn" class="btn btn-primary">Edit Profile</button> 
         </div>
     </div>
 <?php } ?>
@@ -94,8 +123,8 @@
             </div>
 
             <div class="form-actions">
-                <button type="submit" name="update_profile" class="save-btn">Save Changes</button>
-                <button type="button" id="cancelEditBtn" class="cancel-btn">Cancel</button>
+                <button type="submit" name="update_profile" class="btn btn-primary">Save Changes</button>
+                <button type="button" id="cancelEditBtn" class="btn btn-outline">Cancel</button>
             </div>
         </form>
     </section>
@@ -108,15 +137,15 @@ function drawServiceCard($status,$services,$db) { ?>
         <section class="services-section">
             <div class="section-header">
                 <h2>My Services</h2>
-                <a href="/pages/creationService.php" class="btn">Add New Service</a>
+                <a href="/pages/creationService.php" class="btn btn-primary">Add New Service</a>
             </div>
             <?php if (empty($services)): ?>
                 <p class="no-data">You haven't added any services yet.</p>
             <?php else: ?>
-                <div class="service-cards">
+                <div class="service-cards"> <?php // This class provides the grid layout, styled in profile.css ?>
                     <?php foreach ($services as $service): ?>
-                        <div class="service-card">
-                            <a href="/pages/service.php?id=<?php echo $service['id']; ?>" class="service-card-link" aria-label="View <?php echo htmlspecialchars($service['title']); ?>"></a>
+                        <article class="card service-card"> <?php // Changed div to article and added .card base class ?>
+                            <?php // service-card-link removed, links are now on image and title ?>
                             <?php
                             $imgStmt = $db->prepare('SELECT image FROM ServiceImages WHERE service=:svc LIMIT 1');
                             $imgStmt->execute(['svc' => $service['id']]);
@@ -129,29 +158,34 @@ function drawServiceCard($status,$services,$db) { ?>
                                 }
                             }     
                             ?>
-
-                            <div class="service-image">
-                                <img src="<?php echo htmlspecialchars($img); ?>" alt="Service Image">
+                            <div class="card-image-container"> <?php // Was service-image ?>
+                                <a href="/pages/service.php?id=<?php echo $service['id']; ?>">
+                                    <img src="<?php echo htmlspecialchars($img); ?>" alt="<?php echo htmlspecialchars($service['title']); ?>">
+                                </a>
                             </div>
-                            
-                            <div class="service-details">
-                                <h3><?php echo htmlspecialchars($service['title']); ?></h3>
-                                <p class="service-description"><?php echo htmlspecialchars($service['description']); ?></p>
+                            <div class="card-content"> <?php // Was service-details ?>
+                                <h3 class="card-title">
+                                    <a href="/pages/service.php?id=<?php echo $service['id']; ?>"><?php echo htmlspecialchars($service['title']); ?></a>
+                                </h3>
+                                <p class="card-text service-description"><?php echo htmlspecialchars($service['description']); ?></p>
                                 
-                                <div class="service-meta">
+                                <div class="service-meta"> <?php // Custom content, not part of base card ?>
                                     <p class="price">$<?php echo htmlspecialchars(number_format($service['price'], 2)); ?></p>
                                     <p class="rating">
                                         <?php echo $service['average_rating'] ? number_format($service['average_rating'], 1) . ' ★' : 'Not rated'; ?>
                                         (<?php echo $service['order_count']; ?> orders)
                                     </p>
                                 </div>
-                                
-                                <div class="service-actions">
-                                    <a href="editService.php?id=<?php echo $service['id'];?>" class="btn edit-service-btn">Edit</a>
-                                    <a href="service.php?id=<?php echo $service['id']; ?>" class="btn view-btn">View</a>
-                                </div>
                             </div>
-                        </div>
+                            <div class="card-actions"> <?php // Was service-actions ?>
+                                <a href="editService.php?id=<?php echo $service['id'];?>" class="btn btn-secondary">Edit</a>
+                                <a href="/pages/service.php?id=<?php echo $service['id']; ?>" class="btn btn-outline">View</a>
+                                <form action="../controller/serviceEditingController.php?id=<?php echo $service['id']; ?>" method="post" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this service?');">
+                                    <input type="hidden" name="action" value="delete_from_profile">
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                </form>
+                            </div>
+                        </article>
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
@@ -193,11 +227,11 @@ function drawOrderStatus($status,$sellerOrders,$orders) { ?>
                                     </td>
                                     <td><?php echo $order['rating'] ? htmlspecialchars($order['rating']) . ' ★' : 'Not rated'; ?></td>
                                     <td>
-                                        <a href="../pages/orderDetails.php?id=<?php echo htmlspecialchars($order['id']); ?>" class="btn view-btn">View</a>
+                                        <a href="../pages/orderDetails.php?id=<?php echo htmlspecialchars($order['id']); ?>" class="btn btn-outline">View</a>
                                         <?php if ($order['orderStatus'] === 'IN_PROGRESS'): ?>
-                                            <form action="../controller/order_deleteController.php" method="post" class="order-form">
+                                            <form action="../controller/order_deleteController.php" method="post" class="order-form" style="display: inline;">
                                                 <input type="hidden" name="order_id" value="<?php echo $order['id']; ?>">
-                                                <button type="submit" class="btn view-btn" name="action" value="deliver" style="background-color: green;">Deliver</button>
+                                                <button type="submit" class="btn btn-primary" name="action" value="deliver">Deliver</button>
                                             </form>
                                         <?php endif; ?>
                                     </td>
@@ -245,9 +279,9 @@ function drawOrderStatus($status,$sellerOrders,$orders) { ?>
                                             <?php echo htmlspecialchars($s = $order['remaining_days'] <= 0 ? 0 :  $order['remaining_days']); ?></td>
                                         <?php endif; ?>    
                                     <td>
-                                        <a href="../pages/orderDetails.php?id=<?php echo htmlspecialchars($order['id']); ?>" class="btn view-btn">View</a>
+                                        <a href="../pages/orderDetails.php?id=<?php echo htmlspecialchars($order['id']); ?>" class="btn btn-outline">View</a>
                                         <?php if ($order['orderStatus'] === 'DELIVERED' && !$order['rating']): ?>
-                                            <a href="rate-order.php?id=<?php echo htmlspecialchars($order['id']); ?>" class="btn rate-btn">Rate</a>
+                                            <a href="rate-order.php?id=<?php echo htmlspecialchars($order['id']); ?>" class="btn btn-primary">Rate</a>
                                         <?php endif; ?>
                                     </td>
                                 </tr>

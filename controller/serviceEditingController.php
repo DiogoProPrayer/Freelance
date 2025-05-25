@@ -80,16 +80,38 @@ $isOwner = ($userId && $userId == $serviceInfo['seller_id']);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if(isset($_POST['cancel'])) {
-        header('Location: profile.php');
+        header('Location: ../pages/profile.php'); // Corrected path
         exit;
     }
-    if (isset($_POST['deleteService'])) {
+    if (isset($_POST['deleteService'])) { // From editService.php form
         $service->deleteService($serviceId);
-        header('Location: profile.php?service_deleted=true');
-        exit;-*
+        header('Location: ../pages/profile.php?service_deleted=true'); // Corrected path
+        exit;
+    }
+    if (isset($_POST['action']) && $_POST['action'] === 'delete_from_profile') { // From profileView.php delete button
+        // Ensure serviceId is fetched from GET parameter as the form action includes it
+        $serviceIdToDelete = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        if ($serviceIdToDelete > 0 && $isOwner) { // Double check ownership if not already done by a higher level check
+            // Potentially add more checks here: e.g., ensure the user owns this serviceIdToDelete
+            // For now, assuming $isOwner check (which uses $serviceId from GET for the page load) is sufficient
+            // if $serviceId (from page load) matches $serviceIdToDelete.
+            if ($serviceId === $serviceIdToDelete) {
+                $service->deleteService($serviceIdToDelete);
+                header('Location: ../pages/profile.php?service_deleted_profile=true'); // Redirect to profile page
+                exit;
+            } else {
+                // ID mismatch, potential tampering or error
+                header('Location: ../pages/profile.php?error=delete_id_mismatch');
+                exit;
+            }
+        } else {
+            // Not owner or invalid ID
+            header('Location: ../pages/profile.php?error=delete_unauthorized');
+            exit;
+        }
     }
     // Detect if entire POST was dropped due to size
-    if (empty($_POST) && !empty($_SERVER['CONTENT_LENGTH'])) {
+    if (empty($_POST) && !empty($_SERVER['CONTENT_LENGTH']) && $_SERVER['REQUEST_METHOD'] === 'POST' && !isset($_POST['action'])) { // Added more conditions to avoid conflict
         $errors[] = "Upload failed: total size exceeds server limit.";
     } else {
         // Gather inputs safely
@@ -124,9 +146,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $serviceImages->uploadServiceImages($serviceId, $images);
                 }
 
-                header("Location: profile.php?service_updated=true");
+                header("Location: ../pages/profile.php?service_updated=true"); // Corrected path
                 exit;
             }
+            // If $result was false, or other error, consider an error redirect
+            header("Location: ../pages/editService.php?id=" . $serviceId . "&error=update_failed"); // Redirect back to edit page with error
             exit;
         }
     }

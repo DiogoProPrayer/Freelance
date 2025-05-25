@@ -1,72 +1,77 @@
 /* Footer Styles */
 
 footer {
-    background: var(--color-header-bg); /* Using the same dark background as the header */
-    color: var(--color-header-text); /* Light text for contrast */
-    text-align: center;
+    background: var(--color-header-bg);
+    color: var(--color-header-text);
     padding: var(--spacing-xl) var(--spacing-md);
-    margin-top: var(--spacing-xxl); /* Ensures space above the footer */
-    flex-shrink: 0; /* Important for sticky footer layouts if main content is short */
-    border-top: 3px solid var(--color-primary-accent); /* Optional: Adds a subtle top border */
+    margin-top: var(--spacing-xxl);
+    flex-shrink: 0;
+    border-top: 1px solid var(--color-primary-accent-hover); /* Made border more subtle */
 }
 
-footer .footer-content {
-    /* This class can be used on a div directly inside the footer if more structure is needed */
-    /* For now, styling direct children or specific elements */
+.footer-content {
+    max-width: 1200px; /* Consistent with main content max-width */
+    margin: 0 auto; /* Center the content */
+    text-align: center;
 }
 
 footer ul.footer-items {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 0 0 var(--spacing-lg) 0; /* Added bottom margin before copyright */
     display: flex;
-    flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    gap: var(--spacing-md) var(--spacing-xl); /* Vertical and horizontal gap */
-    margin-bottom: var(--spacing-md); /* Space between links and copyright text */
+    gap: var(--spacing-md) var(--spacing-xl);
 }
 
-footer ul.footer-items li {
-    font-size: 0.9em;
-}
-
-footer a {
-    color: inherit; /* Inherits color from parent (footer) */
+/* Styling for links within footer items */
+footer ul.footer-items li a {
+    color: inherit; /* Inherits --color-header-text */
     text-decoration: none;
+    font-size: 0.9rem; /* Using rem units */
     transition: color 0.3s ease, text-decoration 0.3s ease;
 }
 
-footer a:hover {
-    color: var(--color-primary-accent); /* Accent color on hover */
+footer ul.footer-items li a:hover,
+footer ul.footer-items li a:focus { /* Added focus state for accessibility */
+    color: var(--color-primary-accent);
     text-decoration: underline;
 }
 
+/* General paragraph styling within footer, if any were to be added outside copyright */
 footer p {
-    margin: var(--spacing-xs) 0;
-    font-size: 0.9em;
-    color: var(--color-text-secondary); /* Slightly dimmer text for less emphasis */
+    margin: var(--spacing-sm) 0;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary); 
 }
 
-footer p.copyright { /* Specific styling for copyright text if needed */
-    font-size: 0.85em;
-    color: var(--color-text-secondary); /* Can be same as general p or even lighter */
-    margin-top: var(--spacing-lg); /* More space above the copyright */
+/* Specific styling for copyright text */
+footer p.copyright {
+    font-size: 0.85rem; /* Slightly smaller */
+    color: var(--color-text-secondary); /* Using a secondary text color for less emphasis */
+    margin: 0; /* Reset margin if it's the last element in footer-content */
 }
 
-/* Responsive adjustments for footer if necessary */
+/* Responsive adjustments */
 @media (max-width: 768px) {
     footer {
         padding: var(--spacing-lg) var(--spacing-sm);
         margin-top: var(--spacing-xl);
     }
 
+    .footer-content {
+        /* No change needed, already centered */
+    }
+
     footer ul.footer-items {
-        flex-direction: column; /* Stack links vertically on small screens */
-        gap: var(--spacing-sm); /* Reduce gap for stacked items */
+        flex-direction: column;
+        gap: var(--spacing-md); /* Adjusted gap for vertical layout */
+        margin-bottom: var(--spacing-md);
     }
 
     footer p.copyright {
-        margin-top: var(--spacing-md);
+        /* No change needed, already centered and styled */
     }
 }

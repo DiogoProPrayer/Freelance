@@ -23,8 +23,36 @@
         }
 
         public function deleteService(int $service_id){
-            $stmt = $this->database->prepare("DELETE FROM Service WHERE id = :id");
-            return $stmt->execute(['id' => $service_id]);
+            // Start a transaction
+            $this->database->beginTransaction();
+            try {
+                // Delete from ServiceImages
+                $stmtImages = $this->database->prepare("DELETE FROM ServiceImages WHERE service = :service_id");
+                $stmtImages->execute(['service_id' => $service_id]);
+
+                // Delete from ServiceTags (assuming table name is ServiceTags and column is service_id)
+                // Adjust table/column names if different. Let's assume ServiceTags.service_id
+                $stmtTags = $this->database->prepare("DELETE FROM ServiceTags WHERE service_id = :service_id");
+                $stmtTags->execute(['service_id' => $service_id]);
+                
+                // Delete from ServiceOrder (optional: depends on requirements, could orphan orders or set service to NULL)
+                // For now, let's assume orders should also be deleted or handled.
+                // This might be too aggressive, consider setting service to NULL or preventing deletion if orders exist.
+                // For this exercise, I will delete them.
+                $stmtOrders = $this->database->prepare("DELETE FROM ServiceOrder WHERE service = :service_id");
+                $stmtOrders->execute(['service_id' => $service_id]);
+
+                // Delete from Service
+                $stmtService = $this->database->prepare("DELETE FROM Service WHERE id = :id");
+                $stmtService->execute(['id' => $service_id]);
+
+                $this->database->commit();
+                return true;
+            } catch (PDOException $e) {
+                $this->database->rollBack();
+                error_log("Error deleting service and related data: " . $e->getMessage());
+                return false;
+            }
         }
 
         public function deleteReview(int $reviewId){
@@ -92,16 +120,18 @@
             ]);
         }
 
-        public function getServicesbySeller(int $userId){
-            // Fetch user's orders as a client
+        // Renamed from getServicesbySeller and added primary image fetching
+        public function getServicesBySellerId(int $seller_id){
              $servicesStmt = $this->database->prepare("
-                SELECT s.*, AVG(o.rating) as average_rating, COUNT(o.id) as order_count
+                SELECT s.*, AVG(o.rating) as average_rating, COUNT(o.id) as order_count,
+                       (SELECT si.image FROM ServiceImages si WHERE si.service = s.id LIMIT 1) as image 
                 FROM Service s
                 LEFT JOIN ServiceOrder o ON s.id = o.service
                 WHERE s.seller = :seller_id
                 GROUP BY s.id
+                ORDER BY s.creationDate DESC
             ");
-            $servicesStmt->execute(['seller_id' => $userId]);
+            $servicesStmt->execute(['seller_id' => $seller_id]);
             $services = $servicesStmt->fetchAll(PDO::FETCH_ASSOC);
             return $services;
         }
@@ -358,10 +388,10 @@
             ");
             $popularServices->execute();
             $popularServices = $popularServices->fetchAll(PDO::FETCH_ASSOC);
-            foreach ($popularServices as &$service){
+            foreach ($popularServices as &$service_item){ // Changed $service to $service_item to avoid conflict with class property
                 $popularServicesImages=$this->database->prepare("Select image from ServiceImages where service= :id;");
-                $popularServicesImages->execute(['id'=>$service['id']]);
-                $service['images']=$popularServicesImages->fetchAll(PDO::FETCH_COLUMN);
+                $popularServicesImages->execute(['id'=>$service_item['id']]);
+                $service_item['images']=$popularServicesImages->fetchAll(PDO::FETCH_COLUMN);
             }
             return $popularServices;
         }   

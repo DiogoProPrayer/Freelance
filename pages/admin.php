@@ -4,7 +4,7 @@
     require_once (__DIR__ . '/../templates/common.php');
     require_once (__DIR__ . '/../view/adminView.php');
 
-    drawHeader();
+    drawAdminHeader(); // Changed from drawHeader()
     drawTopBar($status,$isAdmin);  
     drawAdminPage($activeTab);
     drawAdminPanel($activeTab,$users,$services,$reviews); 

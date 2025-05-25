@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 console.log('Response data:', data);
                 
                 if (data.success) {
-                    window.location.href = '/../pages/homepage.php';
+                    window.location.href = '/pages/homepage.php'; // Changed to root-relative path
                 } else {
                     // CORREÇÃO: Usar os IDs exatos dos elementos de erro
                     if (data.errors.username) {
