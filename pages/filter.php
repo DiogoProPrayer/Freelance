@@ -8,6 +8,7 @@ require_once(__DIR__ . '/../database/db.php');
 require_once(__DIR__ . '/../model/categoryClass.php');
 require_once(__DIR__ . '/../model/authenticationClass.php');
 require_once(__DIR__ . '/../templates/filterPage.php');
+require_once(__DIR__ . '/../templates/common.php'); // Include common templates
 
 // Inicialização de objetos
 $auth = Authentication::getInstance();
@@ -39,5 +40,13 @@ if ($categorie === null) {
 $serviceList = $category->getServicebyCategory($categorie);
 
 // Renderizar a página
-drawTitle($categoryName);
+drawFilterPageHeader($categoryName);
+drawTopBar($logged); // Assuming $logged is already defined
+echo '<main class="filter-results-container">';
+drawFilterPageHeading($categoryName);
+// Placeholder for filter controls if they are added later:
+// echo '<div class="filter-controls">...</div>';
+drawServiceList($serviceList, $categoryName); // Pass $categoryName for context
+echo '</main>';
+drawFooter();
 ?>

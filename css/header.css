@@ -1,0 +1,229 @@
+/* Header Styles */
+
+#TopBar {
+    background: var(--color-header-bg);
+    color: var(--color-header-text);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-xl);
+    gap: var(--spacing-lg);
+}
+
+#TopBar #logo {
+    /* Assuming logo is an img tag or a link containing an img */
+    /* Add max-height or max-width if necessary to constrain logo size */
+    /* e.g., max-height: 50px; */
+}
+
+#TopBar #logo a, #TopBar #logo img {
+    display: block; /* Ensures proper alignment and sizing */
+}
+
+
+#TopBar form {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.searchbar {
+    width: 100%;
+    max-width: 600px;
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--border-radius-round);
+    font-size: 1em;
+    border: none;
+    outline: none;
+    background: var(--color-white);
+    color: var(--color-text-primary);
+}
+
+nav.user-nav ul#user-controls {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-lg);
+    margin: 0;
+    padding: 0;
+}
+
+nav.user-nav a {
+    color: var(--color-header-text);
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+nav.user-nav a:hover {
+    color: var(--color-primary-accent-hover); /* Using a hover variant for better visibility on dark bg */
+}
+
+.profile-dropdown {
+    position: relative;
+}
+
+.profile-dropdown .profile-icon {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--color-header-text);
+    cursor: pointer;
+}
+
+.profile-dropdown .profile-icon img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid var(--color-header-text);
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + var(--spacing-xs));
+    right: 0;
+    background: var(--color-white);
+    color: var(--color-text-primary);
+    border-radius: var(--border-radius-md);
+    box-shadow: 0 var(--spacing-sm) var(--spacing-md) rgba(0, 0, 0, 0.1);
+    min-width: 12em;
+    z-index: 1000;
+    padding: 0; /* Remove padding if list items have their own */
+    overflow: hidden; /* Ensures child border-radius is clipped */
+    margin-top: var(--spacing-xs); /* Small gap between icon and menu */
+}
+
+.profile-dropdown:hover .dropdown-menu,
+.profile-dropdown:focus-within .dropdown-menu { /* Added focus-within for accessibility */
+    display: block;
+}
+
+.dropdown-menu li {
+    list-style: none; /* Already in base, but good for clarity */
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: var(--spacing-sm) var(--spacing-md);
+    text-decoration: none;
+    color: var(--color-text-primary);
+    background-color: var(--color-white); /* Explicitly set for contrast */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.dropdown-menu a:hover {
+    background-color: var(--color-background); /* Light gray hover */
+    color: var(--color-primary-accent);
+}
+
+.dropdown-menu a.logout {
+    color: var(--color-error);
+}
+
+.dropdown-menu a.logout:hover {
+    background-color: rgba(231, 76, 60, 0.1); /* Light red background on hover */
+    color: var(--color-error);
+    font-weight: bold;
+}
+
+/* Responsive Adjustments for Header */
+@media (max-width: 992px) { /* Adjusted breakpoint for better layout transition */
+    #TopBar {
+        /* Allow more flexibility before stacking */
+        gap: var(--spacing-md);
+        padding: var(--spacing-md) var(--spacing-lg);
+    }
+
+    .searchbar {
+        max-width: 400px; /* Allow search bar to shrink a bit earlier */
+    }
+}
+
+
+@media (max-width: 768px) {
+    #TopBar {
+        flex-direction: column;
+        padding: var(--spacing-md);
+        align-items: stretch; /* Stretch items to full width */
+    }
+
+    #TopBar #logo {
+        display: flex; /* Use flex to center logo if needed */
+        justify-content: center; /* Center logo */
+        margin-bottom: var(--spacing-md); /* Space below logo */
+    }
+
+    #TopBar form {
+        width: 100%;
+        order: 2; /* Search below logo */
+        margin-top: var(--spacing-md);
+        margin-bottom: var(--spacing-md); /* Space below search */
+    }
+
+    .searchbar {
+        max-width: 100%;
+    }
+
+    nav.user-nav {
+        order: 3; /* Nav below search */
+        width: 100%;
+    }
+
+    nav.user-nav ul#user-controls {
+        justify-content: center; /* Center nav items */
+        gap: var(--spacing-md); /* Reduce gap on smaller screens */
+    }
+
+    .profile-dropdown {
+        /* Ensure dropdown doesn't get cut off on mobile */
+        position: static; /* Or adjust 'right' property if it stays absolute */
+    }
+
+    .dropdown-menu {
+        /* Full width or centered dropdown on mobile for better usability */
+        left: 0;
+        right: 0;
+        min-width: auto;
+        width: calc(100% - 2 * var(--spacing-md)); /* Example: full width with padding */
+        margin-left: var(--spacing-md);
+        margin-right: var(--spacing-md);
+        top: calc(100% + var(--spacing-sm)); /* Adjust if profile-dropdown is static */
+    }
+
+    /* If profile-dropdown becomes static, adjust position of dropdown-menu */
+    nav.user-nav .profile-dropdown {
+        display: flex; /* Allow centering of the icon itself if needed */
+        justify-content: center;
+    }
+    .profile-dropdown .profile-icon {
+       /* Potentially add some margin if items are too close */
+    }
+
+     /* When profile-dropdown is static, the menu positioning needs care */
+    .profile-dropdown:hover .dropdown-menu,
+    .profile-dropdown:focus-within .dropdown-menu {
+        /* For static .profile-dropdown, this might need to be relative to a different parent
+           or you ensure the parent nav.user-nav or #TopBar has overflow:visible if needed */
+        /* For now, assuming it works with the parent structure */
+    }
+}
+
+@media (max-width: 480px) {
+    nav.user-nav ul#user-controls {
+        flex-direction: column; /* Stack user controls vertically */
+        align-items: center; /* Center items when stacked */
+        gap: var(--spacing-sm);
+    }
+
+    .profile-dropdown .profile-icon {
+        padding: var(--spacing-sm) 0; /* Add some padding for touch targets */
+    }
+
+    .dropdown-menu {
+        /* Adjust width to be more screen-friendly */
+        width: calc(100% - 2 * var(--spacing-sm));
+        margin-left: var(--spacing-sm);
+        margin-right: var(--spacing-sm);
+    }
+}

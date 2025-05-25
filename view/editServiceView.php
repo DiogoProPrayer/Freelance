@@ -14,8 +14,11 @@ require_once(__DIR__ . '/../model/authenticationClass.php');
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <title>Freelance</title>
         <link rel="icon" href="/images/logo2.png">
-        <link rel="stylesheet" href="/css/common.css">
-        <link rel="stylesheet" href="/css/editService.css">
+        <link rel="stylesheet" href="/css/base.css">
+        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/css/footer.css">
+        <link rel="stylesheet" href="/css/components.css">
+        <link rel="stylesheet" href="/css/service.css">
         <script src="/js/authPopup.js" defer></script>
     </head>
 
@@ -24,7 +27,19 @@ require_once(__DIR__ . '/../model/authenticationClass.php');
 
     <?php function drawEditService($serviceInfo, $imagesService, $categories, $tags, $tagsService)
     { ?>
-        <main class="edit-service">
+        <main id="EditServices" class="new-service-container"> <!-- Changed class and added ID -->
+            <h2>Edit Service</h2> <!-- Added a title similar to newServiceView -->
+            <?php if (!empty($_SESSION['errors'])): ?> <!-- Assuming errors are passed via session -->
+            <div class="alert error">
+                <ul>
+                    <?php foreach ($_SESSION['errors'] as $err): ?>
+                        <li><?php echo htmlspecialchars($err); ?></li>
+                    <?php endforeach; ?>
+                </ul>
+            </div>
+            <?php unset($_SESSION['errors']); ?>
+            <?php endif; ?>
+
             <div class="All-Images">
                 <?php if (!empty($imagesService)): ?>
                     <?php foreach ($imagesService as $image): ?>
@@ -36,7 +51,7 @@ require_once(__DIR__ . '/../model/authenticationClass.php');
                     <?php endforeach ?>
                 <?php endif; ?>
             </div>
-            <div class="edit-service-container">
+                <!-- Removed redundant edit-service-container div -->
                 <form id="serviceForm" method="post" enctype="multipart/form-data">
                     <input type="hidden" name="MAX_FILE_SIZE" value="20971520">
                     <label for="title">Service Title</label>
@@ -107,12 +122,12 @@ require_once(__DIR__ . '/../model/authenticationClass.php');
 
                     <!-- Submit -->
                     <div class="form-actions">
-                        <button type="submit" name="updateService">Update Service</button>
-                        <button type="submit" name="deleteService">Delete Service</button>
-                        <button type="submit" name="cancel">Cancel</button>
+                        <button type="submit" name="updateService" class="btn btn-primary">Update Service</button>
+                        <button type="submit" name="deleteService" class="btn btn-danger">Delete Service</button> <!-- Added btn btn-danger -->
+                        <button type="submit" name="cancel" class="btn btn-outline">Cancel</button> <!-- Added btn btn-outline -->
                     </div>
                 </form>
-            </div>
+            <!-- Removed redundant closing div for edit-service-container -->
         </main>
         <script src="/js/serviceEditing.js"></script>
         <script src="/js/createService.js"></script>

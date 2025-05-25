@@ -8,11 +8,14 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <title>Freelance</title>
         <link rel="icon" href="/images/logo2.png">
-        <link rel="stylesheet" href="/css/common.css">
-        <link rel="stylesheet" href="/css/message.css">
+        <link rel="stylesheet" href="/css/base.css">
+        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/css/footer.css">
+        <link rel="stylesheet" href="/css/components.css">
+        <link rel="stylesheet" href="/css/messages.css">
     </head>
 
-    <body>
+    <body class="messages-page-active">
     <?php } ?>
 
 
@@ -108,7 +111,7 @@
                             </div>
                             <div class="message-input">
                                 <textarea id="messageInput" placeholder="Type a message..."></textarea>
-                                <button id="sendMessage" class="transition rounded pad-md">Send</button>
+                                <button id="sendMessage" class="btn btn-primary">Send</button>
                             </div>
                         </div>
                     </section>

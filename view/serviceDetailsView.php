@@ -8,8 +8,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Freelance</title>
     <link rel="icon" href="/images/logo2.png">
-    <link rel="stylesheet" href="/css/common.css">
-    <link rel="stylesheet" href="/css/viewServiceDetails.css">
+    <link rel="stylesheet" href="/css/base.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/components.css">
+    <link rel="stylesheet" href="/css/service.css">
 </head>
 
 <body>
@@ -136,16 +139,16 @@
 
                 <div class="service-actions">
                     <?php if ($isOwner): ?>
-                        <a href="edit-service.php?id=<?php echo $serviceInfo['id']; ?>" class="btn edit-btn">Edit Service</a>
+                        <a href="edit-service.php?id=<?php echo $serviceInfo['id']; ?>" class="btn btn-secondary edit-btn">Edit Service</a>
                     <?php else: ?>
                         <?php if ($userId): ?>
                             <form action="place-order.php" method="post" class="order-form">
                                 <input type="hidden" name="service_id" value="<?php echo $serviceInfo['id']; ?>">
-                                <button type="submit" class="btn order-btn">Order Now</button>
+                                <button type="submit" class="btn btn-primary order-btn">Order Now</button>
                             </form>
-                            <a href="/pages/messages.php?contact_id=<?php echo $serviceInfo['seller_id']; ?>" class="btn message-btn">Message Seller</a>
+                            <a href="/pages/messages.php?contact_id=<?php echo $serviceInfo['seller_id']; ?>" class="btn btn-outline message-btn">Message Seller</a>
                         <?php else: ?>
-                            <a href="#" onclick="openAuthPopup('login')" class="btn login-to-order-btn">Login to Order</a>
+                            <a href="#" onclick="openAuthPopup('login')" class="btn btn-primary login-to-order-btn">Login to Order</a>
                         <?php endif; ?>
                     <?php endif; ?>
                 </div>
@@ -156,7 +159,7 @@
                 <h2>Similar Services</h2>
                 <div class="related-service-cards">
                     <?php foreach ($relatedServices as $relatedService): ?>
-                        <a href="service.php?id=<?php echo $relatedService['id']; ?>" class="related-service-card">
+                        <a href="service.php?id=<?php echo $relatedService['id']; ?>" class="card related-service-card">
                             <div class="related-service-image">
                                 <img src="<?php echo htmlspecialchars($relatedService['image'] ?? '../images/default_service.jpg'); ?>" alt="Related Service">
                             </div>
