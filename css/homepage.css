@@ -1,0 +1,398 @@
+/* Homepage Specific Styles */
+
+/* 1. Popular Categories */
+#Popular_Categories {
+    background: var(--color-white);
+    padding: var(--spacing-xl) 5%; /* Match example */
+    text-align: center;
+    margin-top: var(--spacing-xxl); /* Add some space from header or content above */
+    margin-bottom: var(--spacing-xxl);
+}
+
+/* h2 styling for #Popular_Categories will primarily come from base.css
+   main > section > h2, but this is a nav, not a section.
+   So, let's ensure it has similar styling if it's a top-level page block.
+*/
+#Popular_Categories > h2 {
+    font-size: 2em;
+    margin-bottom: 1.5em;
+    color: var(--color-primary-accent);
+    position: relative;
+    text-align: center; /* Already set by #Popular_Categories, but good for clarity */
+}
+
+#Popular_Categories > h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: var(--color-primary-accent);
+    border-radius: 2px;
+}
+
+ul#category {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-lg);
+    justify-content: center;
+    padding-left: 0; /* Remove default padding */
+    list-style: none; /* Ensure no bullets */
+}
+
+ul#category li.categories { /* Assuming 'categories' is the class for li items based on instructions */
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    background-color: var(--color-background); /* Slightly different from white for contrast */
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-radius: var(--border-radius-round);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid var(--color-light-gray-border);
+}
+
+ul#category li.categories:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+ul#category li.categories img {
+    width: 24px;
+    height: 24px;
+    /* object-fit: contain; if images have varied aspect ratios */
+}
+
+ul#category li.categories a {
+    font-weight: 500;
+    color: var(--color-text-primary);
+    text-decoration: none;
+}
+ul#category li.categories a:hover {
+    color: var(--color-primary-accent);
+}
+
+/* 2. Sellers Section (#sellers) */
+/* main > section#sellers > header > h2 styling from base.css */
+
+#sellers .scrollable {
+    display: flex;
+    gap: var(--spacing-lg);
+    overflow-x: auto;
+    padding: var(--spacing-md) 0 var(--spacing-lg) 0; /* Padding for scrollbar visibility and aesthetics */
+    /* For snapping behavior (optional) */
+    /* scroll-snap-type: x mandatory; */
+}
+
+#sellers .scrollable::-webkit-scrollbar {
+    height: 8px;
+}
+
+#sellers .scrollable::-webkit-scrollbar-track {
+    background: var(--color-background); /* Match page background */
+    border-radius: 4px;
+}
+
+#sellers .scrollable::-webkit-scrollbar-thumb {
+    background: var(--color-light-gray-border);
+    border-radius: 4px;
+}
+
+#sellers .scrollable::-webkit-scrollbar-thumb:hover {
+    background: #ccc; /* Slightly darker gray from variables if available */
+}
+
+#sellers article.seller {
+    /* Using .card style from components.css as a base */
+    flex: 0 0 280px; /* Width for each seller card in the scrollable row */
+    /* scroll-snap-align: start; /* For snapping behavior (optional) */
+    /* Other .card styles like background, border-radius, box-shadow are inherited */
+}
+
+#sellers article.seller .profile_pic {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    /* border-bottom: 1px solid var(--color-light-gray-border); */ /* Handled by card-image-container if used */
+}
+
+/* If .card-image-container is used for the image: */
+#sellers article.seller .card-image-container .profile_pic {
+    border-bottom: none; /* Remove double border if card-image-container has one */
+}
+
+
+#sellers article.seller .information { /* This seems to be custom, not part of .card-content */
+    padding: var(--spacing-md);
+    text-align: center;
+}
+
+#sellers article.seller .sellerName p,
+#sellers article.seller .sellerRating p {
+    margin-bottom: var(--spacing-xs);
+    font-size: 1rem; /* Ensure readability */
+}
+
+#sellers article.seller .sellerName p {
+    font-weight: bold;
+    color: var(--color-text-primary);
+}
+
+#sellers article.seller .sellerRating p {
+    color: var(--color-text-secondary);
+}
+/* Using .card-actions for the button if it's part of the .card structure */
+#sellers article.seller .card-actions {
+    justify-content: center; /* Center the "View Profile" button */
+}
+
+
+/* 3. Services Section (#services) */
+/* main > section#services > header > h2 styling from base.css */
+
+#services .displayServices {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: var(--spacing-xl);
+}
+
+#services article {
+    /* This should use the .card style from components.css */
+    /* Styles like background, border-radius, box-shadow are inherited */
+    /* height: 100%; */ /* Already in .card, good for grid layout */
+}
+
+/* Assuming ServiceImages is a container like card-image-container */
+#services article .ServiceImages {
+    /* Default to card-image-container styles */
+    /* If it's a gallery, specific styling would be needed here */
+}
+
+#services article .ServiceImages img.service_images {
+    width: 100%;
+    height: 220px; /* Fixed height for service images */
+    object-fit: cover;
+    /* border-bottom: 1px solid var(--color-light-gray-border); */ /* Handled by card-image-container */
+}
+
+/* Content area within the service card */
+#services article #information { /* Using this as the .card-content equivalent */
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Ensures this area takes up available space */
+}
+
+#services article .profile_pic2 {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: var(--spacing-sm);
+    float: left; /* As per instruction, for image beside text */
+    border: 1px solid var(--color-light-gray-border); /* Add a subtle border */
+}
+
+#services article .service-details {
+    /* This div groups title, seller, rating */
+    margin-left: 50px; /* If profile_pic2 is floated and has 40px width + 10px margin */
+    flex-grow: 1; /* Allow this to grow to push price down if needed */
+}
+
+#services article .serviceTitle p {
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-bottom: var(--spacing-xs); /* Reduced margin */
+    color: var(--color-text-primary); /* Ensure it's not too light */
+    line-height: 1.3;
+}
+
+#services article .sellerName p,
+#services article .sellerRating p {
+    font-size: 0.9em;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-xs);
+    line-height: 1.2;
+}
+#services article .sellerName p a:hover {
+    text-decoration: underline;
+    color: var(--color-primary-accent);
+}
+
+
+#services article .price { /* Changed from .price p for better structure */
+    margin-top: auto; /* Pushes price to the bottom of #information */
+    padding-top: var(--spacing-sm);
+    text-align: right; /* Align price to the right */
+}
+
+#services article .price p {
+    font-weight: bold;
+    color: var(--color-primary-accent);
+    font-size: 1.3em;
+    margin-bottom: 0; /* Remove default p margin */
+}
+
+/* 4. Call to Action (CTA) Section */
+/* Assuming the CTA is the #authPopup triggered by buttons, or a separate banner */
+/* Styling for a dedicated banner, if one exists with ID #cta-freelance-banner */
+#cta-freelance-banner {
+    position: relative;
+    background: var(--color-light-gray-border); /* Fallback background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: var(--spacing-xxl) var(--spacing-xl);
+    margin-top: var(--spacing-xxl);
+    margin-bottom: var(--spacing-xxl);
+    text-align: center;
+    background-image: url('../images/freelances.jpg'); /* Adjusted path based on typical structure */
+    background-size: cover;
+    background-position: center;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden; /* Ensure overlay respects border-radius */
+}
+
+#cta-freelance-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(30, 30, 47, 0.75); /* Dark overlay from example */
+    border-radius: var(--border-radius-lg); /* Match parent */
+    z-index: 0; /* Behind content */
+}
+
+#cta-freelance-banner .cta-content { /* Container for text and buttons inside banner */
+    position: relative;
+    z-index: 1; /* Above overlay */
+    color: var(--color-white);
+    max-width: 600px;
+}
+
+#cta-freelance-banner .cta-content h2 {
+    color: var(--color-white); /* Override base.css if needed */
+    font-size: 2.5em; /* From instructions */
+    margin-bottom: var(--spacing-md);
+    font-family: var(--font-family-display);
+}
+
+#cta-freelance-banner .cta-content p {
+    font-size: 1.1em;
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9); /* Slightly transparent white for better blend */
+}
+
+#cta-freelance-banner .cta-buttons {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
+}
+/* Buttons inside .cta-buttons will use .btn, .btn-primary, .btn-secondary from components.css */
+/* Example: .cta-buttons .btn-primary */
+
+
+/* 5. Responsive adjustments for homepage sections */
+@media (max-width: 992px) {
+    #services article .service-details {
+        margin-left: 0; /* Stack details below image on smaller tablets */
+    }
+    #services article .profile_pic2 {
+        float: none;
+        margin-bottom: var(--spacing-sm); /* Space below image */
+    }
+}
+
+@media (max-width: 768px) {
+    #Popular_Categories {
+        padding: var(--spacing-lg) var(--spacing-md);
+    }
+    #Popular_Categories > h2 {
+        font-size: 1.8em;
+    }
+
+    #services .displayServices {
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: var(--spacing-lg);
+    }
+
+    #sellers article.seller {
+        flex-basis: 250px; /* Adjust seller card width for smaller screens */
+        /* Consider making scrollbar thinner or less prominent */
+    }
+
+    #cta-freelance-banner {
+        padding: var(--spacing-xl) var(--spacing-lg);
+        margin-top: var(--spacing-xl);
+        margin-bottom: var(--spacing-xl);
+    }
+
+    #cta-freelance-banner .cta-content h2 {
+        font-size: 2em;
+    }
+    #cta-freelance-banner .cta-content p {
+        font-size: 1em;
+    }
+}
+
+@media (max-width: 480px) {
+    #Popular_Categories > h2 {
+        font-size: 1.6em;
+    }
+    ul#category li.categories {
+        flex-basis: calc(50% - var(--spacing-md)); /* Two categories per row */
+        /* flex-basis: 100%; /* Stack categories (as per original instruction) */
+        justify-content: flex-start; /* Align items to start if category text is short */
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    ul#category li.categories img {
+        width: 20px;
+        height: 20px;
+    }
+    ul#category li.categories a {
+        font-size: 0.9em;
+    }
+
+
+    #sellers article.seller {
+        flex-basis: calc(100% - var(--spacing-md)); /* Make seller cards almost full width */
+        scroll-snap-align: center; /* Center card when scrolling */
+    }
+    #sellers .scrollable {
+        padding-left: var(--spacing-sm); /* Allow first card to not be cut off */
+        padding-right: var(--spacing-sm);
+    }
+
+
+    #services .displayServices {
+        grid-template-columns: 1fr; /* Single column for services */
+        gap: var(--spacing-md);
+    }
+    #services article .ServiceImages img.service_images {
+        height: 180px; /* Reduce image height */
+    }
+    #services article .price p {
+        font-size: 1.15em;
+    }
+
+
+    #cta-freelance-banner {
+        padding: var(--spacing-lg) var(--spacing-sm);
+    }
+
+    #cta-freelance-banner .cta-content h2 {
+        font-size: 1.8em;
+    }
+    #cta-freelance-banner .cta-content p {
+        font-size: 0.9em;
+    }
+
+    #cta-freelance-banner .cta-buttons {
+        flex-direction: column; /* Stack buttons vertically */
+        gap: var(--spacing-sm);
+    }
+    #cta-freelance-banner .cta-buttons .btn {
+        width: 100%; /* Make buttons full width */
+    }
+}

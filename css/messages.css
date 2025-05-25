@@ -1,0 +1,406 @@
+/* Messages Page Specific Styles */
+
+/* Overall Layout */
+html.messages-page-active, /* Class to be added to <html> */
+body.messages-page-active { /* Class to be added to <body> */
+    height: 100%;
+    overflow: hidden; /* Prevent scrolling of the body itself when messages page is active */
+}
+
+.messages-wrapper { /* This div wraps header, main.messages-container, and footer */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure it takes full viewport height */
+}
+
+main.messages-container { /* From messagesView.php */
+    display: flex;
+    flex: 1; /* Allow it to grow and fill space */
+    overflow: hidden;
+    margin: var(--spacing-lg) 8%;
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--color-light-gray-border);
+    background-color: var(--color-white);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+/* Sidebar (.conversation-sidebar) */
+.conversation-sidebar {
+    width: 320px;
+    min-width: 280px;
+    background: var(--color-white);
+    overflow-y: auto;
+    border-right: 1px solid var(--color-light-gray-border);
+    display: flex;
+    flex-direction: column;
+}
+
+.messages-header { /* This is an h2 in messagesView.php */
+    font-size: 1.2em;
+    font-weight: 600;
+    padding: var(--spacing-lg);
+    margin:0;
+    border-bottom: 1px solid var(--color-light-gray-border);
+    color: var(--color-primary-accent);
+}
+
+.conversation-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    flex-grow: 1; /* Allows it to take available space for scrolling */
+}
+
+.conversation-item {
+    display: flex;
+    gap: var(--spacing-md);
+    padding: var(--spacing-md) var(--spacing-lg);
+    cursor: pointer;
+    border-bottom: 1px solid var(--color-light-gray-border);
+    transition: background-color 0.2s ease;
+}
+
+.conversation-item:last-child {
+    border-bottom: none;
+}
+
+.conversation-item:hover,
+.conversation-item.active {
+    background: #f5f6ff; /* Light blue/purple from example */
+}
+
+.no-conversations {
+    padding: var(--spacing-xl);
+    text-align: center;
+    color: var(--color-text-secondary);
+}
+
+.conversation-avatar img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid var(--color-light-gray-border);
+}
+
+.conversation-details {
+    flex: 1;
+    min-width: 0; /* For text overflow */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.conversation-header { /* Container for username and time */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-xs);
+}
+
+.username {
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: var(--color-text-primary);
+}
+
+.time {
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+    flex-shrink: 0; /* Prevent time from shrinking */
+    margin-left: var(--spacing-sm);
+}
+
+.message-preview {
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+}
+
+/* Chat Area (.chat-area) */
+.chat-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-background); /* Slightly off-white for contrast */
+    min-width: 300px; /* Minimum width before it gets too squished */
+    position: relative; /* For positioning of header and input form */
+}
+
+.chat-messages { /* This is a div in messagesView.php - the direct child of chat-area */
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    position: relative; /* Needed for absolute positioning of children */
+}
+
+.chat-header { /* Header within chat area */
+    padding: 0 var(--spacing-lg); /* Adjusted padding */
+    border-bottom: 1px solid var(--color-light-gray-border);
+    background: var(--color-white);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    position: absolute;
+    top: 0;
+    left: 0; /* Ensure it spans full width */
+    right: 0; /* Ensure it spans full width */
+    width: 100%;
+    z-index: 10;
+    height: 60px; /* Fixed height */
+    display: flex; /* Use flex for alignment */
+    align-items: center;
+}
+
+.chat-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.messages-list { /* Where individual messages go */
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-lg);
+    display: flex;
+    flex-direction: column; /* To stack messages */
+    position: absolute;
+    top: 60px; /* Height of .chat-header */
+    bottom: 80px; /* Height of .message-input */
+    width: 100%;
+    left:0; /* Ensure it spans full width */
+    right:0; /* Ensure it spans full width */
+}
+
+.message {
+    max-width: 70%;
+    margin-bottom: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--border-radius-lg);
+    position: relative;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    /* white-space: normal; Removed, this is default */
+    line-height: 1.4;
+}
+
+.message.sent {
+    align-self: flex-end;
+    background-color: var(--color-primary-accent);
+    color: var(--color-white);
+    border-bottom-right-radius: var(--border-radius-sm);
+    /* text-align: right; Not needed if align-self is used, content aligns naturally */
+}
+
+.message.received {
+    align-self: flex-start;
+    background-color: #e8e8e8; /* Light gray from example */
+    color: var(--color-text-primary);
+    border-bottom-left-radius: var(--border-radius-sm);
+    /* text-align: left; Not needed if align-self is used */
+}
+
+.message p {
+    margin: 0;
+}
+
+.message .timestamp {
+    display: block;
+    font-size: 0.7rem;
+    margin-top: var(--spacing-xs);
+    opacity: 0.8;
+    /* For sent messages, align timestamp right, for received, left */
+}
+.message.sent .timestamp { text-align: right; }
+.message.received .timestamp { text-align: left; }
+
+
+.message-input { /* Container for textarea and send button */
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+    background: var(--color-white);
+    border-top: 1px solid var(--color-light-gray-border);
+    box-shadow: 0 -1px 5px rgba(0,0,0,0.05);
+    position: absolute;
+    bottom: 0;
+    left: 0; /* Ensure it spans full width */
+    right: 0; /* Ensure it spans full width */
+    width: 100%;
+    z-index: 10;
+    min-height: 80px; /* Fixed height */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+}
+
+.message-input textarea {
+    flex: 1;
+    border: 1px solid var(--color-light-gray-border);
+    border-radius: var(--border-radius-round);
+    padding: var(--spacing-sm) var(--spacing-lg);
+    resize: none;
+    min-height: calc(var(--spacing-unit) * 2.5); /* Approx 2.5 lines, ~40px for 16px base */
+    max-height: 120px; /* Approx 6-7 lines */
+    font-family: inherit;
+    font-size: 0.95rem;
+    outline: none;
+    line-height: 1.5; /* Better text visibility */
+    overflow-y: auto; /* Show scrollbar if max-height is reached */
+}
+
+.message-input textarea:focus {
+    border-color: var(--color-primary-accent);
+    box-shadow: 0 0 0 2px rgba(41, 26, 131, 0.1); /* Subtle focus ring */
+}
+
+.message-input button { /* Uses .btn from components.css, can add specifics */
+    margin-left: var(--spacing-md);
+    padding: var(--spacing-sm) var(--spacing-lg); /* Ensure padding is consistent */
+    min-width: auto; /* Override .btn min-width if needed for just an icon button */
+    /* Example for an icon button:
+    font-size: 1.2rem;
+    padding: var(--spacing-sm);
+    */
+}
+
+/* Chat Placeholder (.chat-placeholder) */
+.chat-placeholder {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: var(--spacing-md);
+    color: var(--color-text-secondary);
+    padding: var(--spacing-xl);
+    height: 100%; /* Ensure it takes full height of chat-area if no messages */
+}
+
+.chat-placeholder img {
+    width: 160px;
+    max-width: 50%; /* Prevent image from being too large on small screens */
+    opacity: 0.3;
+    margin-bottom: var(--spacing-md);
+}
+
+.chat-placeholder h3 {
+    font-size: 1.5em;
+    color: var(--color-text-primary); /* Using primary text color for better visibility */
+    margin-bottom: var(--spacing-xs);
+}
+.chat-placeholder p {
+    font-size: 1em;
+}
+
+
+/* Sticky Footer Consideration for Messages Page */
+body.messages-page-active footer {
+    /* Styles from footer.css will apply */
+    /* Ensure it's at the bottom if .messages-wrapper is 100vh */
+    /* This is handled by .messages-wrapper flex properties */
+}
+
+/* Responsive adjustments for messages page */
+@media (max-width: 992px) {
+    main.messages-container {
+        margin: var(--spacing-lg) 4%;
+    }
+    .conversation-sidebar {
+        width: 280px; /* Slightly reduce sidebar width */
+        min-width: 240px;
+    }
+}
+
+@media (max-width: 768px) {
+    html.messages-page-active,
+    body.messages-page-active {
+        overflow: auto; /* Allow scrolling on mobile as layout changes */
+    }
+
+    .messages-wrapper {
+        min-height: unset; /* Allow content to define height */
+    }
+
+    main.messages-container {
+        flex-direction: column;
+        height: auto; /* Allow it to grow beyond viewport height if needed on mobile */
+        margin: 0;
+        border-radius: 0;
+        border: none;
+        box-shadow: none;
+    }
+
+    .conversation-sidebar {
+        width: 100%;
+        min-width: unset;
+        max-height: 250px; /* Or a percentage, for when chat is active */
+        border-right: none;
+        border-bottom: 1px solid var(--color-light-gray-border);
+    }
+
+    .chat-area {
+        min-height: calc(100vh - 250px - var(--footer-height, 0px) - var(--header-height, 0px)); /* Approximate calculation */
+        /* Fallback if CSS variables for header/footer height are not set: */
+        min-height: 500px; /* Ensure it has some height when sidebar is small */
+    }
+
+    /* .messages-list top/bottom remain the same as they are relative to .chat-area's header/input */
+}
+
+@media (max-width: 480px) {
+    .conversation-sidebar {
+        max-height: 200px; /* Further reduce sidebar height on small mobile */
+    }
+    .conversation-item {
+        padding: var(--spacing-sm) var(--spacing-md); /* Reduce padding */
+    }
+    .conversation-avatar img {
+        width: 40px;
+        height: 40px;
+    }
+    .username { font-size: 0.95rem; }
+    .message-preview { font-size: 0.85rem; }
+
+
+    .message {
+        max-width: 85%;
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+    .message .timestamp { font-size: 0.65rem; }
+
+    .chat-header {
+        height: 50px;
+        padding: 0 var(--spacing-md);
+    }
+    .chat-header h3 { font-size: 1rem; }
+    .messages-list {
+        top: 50px; /* Adjusted for chat-header height */
+        bottom: 70px; /* Adjusted for message-input height */
+        padding: var(--spacing-md);
+    }
+
+    .message-input {
+        min-height: 70px; /* Adjusted height */
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+
+    .message-input textarea {
+        min-height: calc(var(--spacing-unit) * 2); /* ~32px for 16px base */
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: 0.9rem;
+    }
+    .message-input button {
+        margin-left: var(--spacing-sm);
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+
+    .chat-placeholder img { width: 120px; }
+    .chat-placeholder h3 { font-size: 1.3em; }
+    .chat-placeholder p { font-size: 0.9em; }
+}

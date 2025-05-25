@@ -6,7 +6,10 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <title>Freelance</title>
         <link rel="icon" href="/images/logo2.png">
-        <link rel="stylesheet" href="/css/common.css">
+        <link rel="stylesheet" href="/css/base.css">
+        <link rel="stylesheet" href="/css/header.css">
+        <link rel="stylesheet" href="/css/footer.css">
+        <link rel="stylesheet" href="/css/components.css">
         <link rel="stylesheet" href="/css/profile.css">
         <script src="/js/profile.js" defer></script>
     </head>
@@ -46,7 +49,7 @@
             </div>
 
             <p class="user-country"><?php echo htmlspecialchars($user->getCountry() ?: 'No country specified'); ?></p>
-            <button id="editProfileBtn" class="edit-btn main-edit-btn">Edit Profile</button>
+            <button id="editProfileBtn" class="btn btn-outline main-edit-btn">Edit Profile</button>
         </div>
     </div>
 <?php } ?>
@@ -91,8 +94,8 @@
             </div>
 
             <div class="form-actions">
-                <button type="submit" name="update_profile" class="save-btn">Save Changes</button>
-                <button type="button" id="cancelEditBtn" class="cancel-btn">Cancel</button>
+                <button type="submit" name="update_profile" class="btn btn-primary save-btn">Save Changes</button>
+                <button type="button" id="cancelEditBtn" class="btn btn-outline cancel-btn">Cancel</button>
             </div>
         </form>
     </section>
@@ -105,14 +108,14 @@ function drawServiceCard($status,$services,$db) { ?>
         <section class="services-section">
             <div class="section-header">
                 <h2>My Services</h2>
-                <a href="/pages/creationService.php" class="btn">Add New Service</a>
+                <a href="/pages/creationService.php" class="btn btn-primary">Add New Service</a>
             </div>
             <?php if (empty($services)): ?>
                 <p class="no-data">You haven't added any services yet.</p>
             <?php else: ?>
                 <div class="service-cards">
                     <?php foreach ($services as $service): ?>
-                        <div class="service-card">
+                        <div class="card service-card">
                             <a href="/pages/service.php?id=<?php echo $service['id']; ?>" class="service-card-link" aria-label="View <?php echo htmlspecialchars($service['title']); ?>"></a>
                             <?php
                             $imgStmt = $db->prepare('SELECT image FROM ServiceImages WHERE service=:svc LIMIT 1');

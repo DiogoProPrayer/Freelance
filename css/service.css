@@ -1,0 +1,422 @@
+/* CSS rules for service-related pages */
+
+/* A. Service Details Page */
+
+/* 1. Main Container & Breadcrumbs */
+.service-page-container {
+    max-width: 1100px;
+    margin: var(--spacing-xl) auto;
+    padding: 0 var(--spacing-xl); /* Adjusted padding to be only horizontal */
+}
+
+.service-breadcrumb {
+    margin-bottom: var(--spacing-lg);
+    font-size: 0.9em;
+    color: var(--color-text-secondary);
+}
+
+.service-breadcrumb a {
+    color: var(--color-primary-accent);
+    text-decoration: none;
+}
+
+.service-breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.service-breadcrumb .breadcrumb-current {
+    color: var(--color-text-primary);
+    font-weight: 500;
+}
+
+/* 2. Service Content Layout */
+.service-content {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr; /* Adjust ratio as needed, e.g., 60% 40% */
+    gap: var(--spacing-xl);
+    background-color: var(--color-white);
+    padding: var(--spacing-xl);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+}
+
+/* 3. Service Gallery */
+.service-gallery .carousel { /* From serviceDetailsView, not the global carousel */
+    position: relative;
+}
+
+.service-gallery .image-container img#current-image,
+.service-gallery .main-image img { /* #current-image is from serviceDetailsView */
+    width: 100%;
+    max-height: 500px;
+    object-fit: cover;
+    border-radius: var(--border-radius-md);
+    margin-bottom: var(--spacing-md);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.service-gallery .carousel button.prev,
+.service-gallery .carousel button.next { /* From serviceDetailsView */
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0,0,0,0.5);
+    color: white;
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: var(--border-radius-round);
+    z-index: 5;
+}
+
+.service-gallery .carousel button.prev:hover,
+.service-gallery .carousel button.next:hover {
+    background-color: rgba(0,0,0,0.8);
+}
+
+.service-gallery .carousel button.prev {
+    left: var(--spacing-md);
+}
+
+.service-gallery .carousel button.next {
+    right: var(--spacing-md);
+}
+
+.thumbnail-container {
+    display: flex;
+    gap: var(--spacing-sm);
+    overflow-x: auto;
+    padding-bottom: var(--spacing-xs);
+}
+
+.thumbnail {
+    width: 80px;
+    height: 80px;
+    border-radius: var(--border-radius-sm);
+    overflow: hidden;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.3s, transform 0.2s;
+    border: 2px solid transparent;
+}
+
+.thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumbnail:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+}
+
+.thumbnail.active {
+    opacity: 1;
+    border-color: var(--color-primary-accent);
+}
+
+/* 4. Service Details Info */
+.service-details h1.service-title {
+    font-size: 1.8em;
+    margin-top: 0;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-primary); /* Overriding default h1 color if needed */
+}
+
+.service-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px solid var(--color-light-gray-border);
+}
+
+.rating-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.rating-info .rating,
+.rating-info .orders {
+    font-size: 0.9em;
+    color: var(--color-text-secondary);
+}
+
+.rating-info .rating .fa-star,
+.rating-info .rating .fa-star-half-alt {
+    color: #ffc107; /* Yellow for stars */
+}
+
+.price-info .price {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: var(--color-primary-accent);
+}
+
+.price-info .delivery-time {
+    font-size: 0.9em;
+    color: var(--color-text-secondary);
+    text-align: right;
+}
+
+.seller-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg) 0;
+    border-bottom: 1px solid var(--color-light-gray-border);
+    margin-bottom: var(--spacing-lg);
+}
+
+.seller-info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.seller-info .seller-name {
+    font-weight: 600;
+}
+
+.seller-info .seller-username {
+    font-size: 0.9em;
+    color: var(--color-text-secondary);
+}
+
+.service-description h2 { /* If "Description" is an h2 */
+    font-size: 1.2em;
+    margin-bottom: var(--spacing-sm);
+    color: var(--color-text-primary);
+}
+
+.service-description .description-text {
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-lg);
+}
+
+.service-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-lg);
+}
+
+.service-tags .tag {
+    background-color: var(--color-light-gray-border);
+    color: var(--color-text-secondary);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: var(--border-radius-round);
+    font-size: 0.85em;
+}
+
+.service-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.service-actions .btn {
+    width: 100%; /* Make buttons full width in this column */
+}
+
+/* 5. Related Services */
+.related-services {
+    margin-top: var(--spacing-xl);
+    padding-top: var(--spacing-xl);
+    border-top: 1px solid var(--color-light-gray-border);
+}
+
+.related-services h2 {
+    text-align: left; /* Override centered h2 from base.css if needed */
+    margin-bottom: var(--spacing-lg);
+    font-size: 1.5em;
+}
+
+.related-service-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: var(--spacing-lg);
+}
+
+.related-service-card { /* Uses .card from components.css */
+    text-decoration: none;
+}
+
+.related-service-card .related-service-image img {
+    height: 150px;
+    object-fit: cover;
+}
+
+.related-service-card .related-service-details {
+    padding: var(--spacing-md);
+}
+
+.related-service-card .related-title {
+    font-size: 1em;
+    font-weight: 500;
+    margin-bottom: var(--spacing-xs);
+    color: var(--color-text-primary);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 2.6em; /* Approx 2 lines */
+}
+
+.related-service-card .related-price {
+    font-size: 1em;
+    font-weight: bold;
+    color: var(--color-primary-accent);
+}
+
+/* B. New/Edit Service Form */
+main#NewServices .new-service-container {
+    max-width: 800px;
+    margin: var(--spacing-xl) auto;
+    padding: var(--spacing-xl);
+    background-color: var(--color-white);
+    border-radius: var(--border-radius-lg);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+}
+
+#NewServices h2 {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+/* #serviceForm .form-group uses global .form-group */
+/* #serviceForm label uses global label */
+/* #serviceForm input, #serviceForm textarea, #serviceForm select uses global styles */
+
+.tag-checkboxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    background-color: var(--color-background);
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-sm);
+}
+
+.tag-checkboxes div {
+    display: flex;
+    align-items: center;
+}
+
+.tag-checkboxes input[type="checkbox"] {
+    width: auto;
+    margin-right: var(--spacing-sm);
+}
+
+.drop-area {
+    border: 2px dashed var(--color-light-gray-border);
+    border-radius: var(--border-radius-md);
+    padding: var(--spacing-xl);
+    text-align: center;
+    cursor: pointer;
+    background-color: var(--color-background);
+    margin-bottom: var(--spacing-lg);
+}
+
+.drop-area:hover,
+.drop-area.dragover {
+    border-color: var(--color-primary-accent);
+    background-color: #f0f5ff; /* Light blueish background */
+}
+
+.drop-area #drop-text {
+    margin-bottom: var(--spacing-sm);
+    font-weight: 500;
+}
+
+.drop-area input[type="file"] {
+    display: none; /* Hidden as it's activated by click on drop-area */
+}
+
+.drop-area #preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-md);
+}
+
+.drop-area #preview .image-preview-item {
+    width: 100px;
+    height: 100px;
+    border-radius: var(--border-radius-sm);
+    overflow: hidden;
+    position: relative;
+}
+
+.drop-area #preview .image-preview-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.drop-area #preview .remove-image-btn {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    line-height: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* #serviceForm .form-actions uses global .form-actions */
+
+/* Alert styling is now in components.css */
+
+/* C. Responsive Adjustments for Service Pages */
+@media (max-width: 992px) {
+    .service-content {
+        grid-template-columns: 1fr; /* Stack gallery and details */
+    }
+    .service-gallery .main-image img,
+    .service-gallery .image-container img#current-image {
+        max-height: 400px;
+    }
+}
+
+@media (max-width: 768px) {
+    .service-page-container {
+        padding: 0 var(--spacing-lg);
+    }
+    .service-content {
+        padding: var(--spacing-lg);
+    }
+    .related-service-cards {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .service-page-container {
+        padding: 0 var(--spacing-md);
+    }
+    .service-details h1.service-title {
+        font-size: 1.5em;
+    }
+    .price-info .price {
+        font-size: 1.5em;
+    }
+    .tag-checkboxes {
+        grid-template-columns: 1fr;
+    }
+}
