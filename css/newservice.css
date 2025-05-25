@@ -1,0 +1,332 @@
+/* newservice.css — only form/drop-area styling, scoped under .new-service-container */
+#NewServices
+{   
+    grid-column: 1/span 4;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: subgrid;
+}
+.new-service-container {
+    grid-row: 1;
+    grid-column: 1/span 4;
+    margin: 1em;
+    width: 100%;
+    justify-content: center;
+    justify-self: center;
+    background:var(--color-primary);
+    display: flex;
+    flex-direction: column;
+    gap:0.5em;
+    padding: 2rem;
+    border-radius: 0.5em;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.new-service-container h2 {
+    text-align: center;
+    font-size: medium;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+}
+
+.new-service-container form label {
+    display: block;
+
+    font-weight: 300;
+}
+
+.new-service-container input[type="text"],
+.new-service-container input[type="number"],
+.new-service-container textarea,
+.new-service-container select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    background: #fdfdfd;
+    font-size: small;
+    color: var(--color-black);
+    font-weight: 300;
+    text-align: center;
+}
+select  {
+    height: min-content;
+}
+
+.new-service-container textarea {
+    resize: vertical;
+}
+
+.new-service-container .tag-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 1em;
+    margin-top: 0.5rem;
+}
+
+.new-service-container .tag-checkboxes input {
+    display: none;
+}
+
+.new-service-container .tag-checkboxes label {
+    background:var(--color-light-gray);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    user-select: none;
+    font-size: small;
+}
+
+.new-service-container .tag-checkboxes input:checked+label {
+    background: var(--color-secondary);
+    color: white;
+    font-size: small;
+}
+
+.new-service-container .drop-area {
+    position: relative;
+    margin-top: 1rem;
+    padding: 1.5rem;
+    border: 2px dashed #ccc;
+    border-radius: 12px;
+    text-align: center;
+    background: #fafafa;
+    transition: background 0.2s, border-color 0.2s;
+    cursor: pointer;
+}
+
+.new-service-container .drop-area.hover {
+    border-color: var(--color-secondary);
+    background: hsl(212, 100%, 97%);
+}
+
+.new-service-container .drop-area input[type="file"] {
+    display: none;
+}
+
+.new-service-container #preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 1rem;
+}
+
+.new-service-container .thumb {
+    position: relative;
+}
+
+.new-service-container .thumb img {
+    height: 100px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.new-service-container .remove-btn {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: var(--color-ternary);
+    border: none;
+    color: white;
+    font-size: 1rem;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.new-service-container .form-actions {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.new-service-container .form-actions button {
+    padding: 0.8rem 2rem;
+    background: var(--color-ternary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.new-service-container .form-actions button:hover {
+    background: var(--color-ternary);
+}
+.new-service-container input{
+    outline: none;
+
+}
+.new-service-container textarea{
+    outline: none;
+}
+
+
+@media (width >= 64rem) { 
+#NewServices
+{   
+    grid-column: 1/span 12;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: subgrid;
+}
+.new-service-container {
+    width: 100%;
+    grid-column: 4/span 6; 
+    justify-content: center;
+    justify-self: center;
+    background:var(--color-primary);
+    display: flex;
+    flex-direction: column;
+    gap:0.5em;
+    padding: 2rem;
+    border-radius: 0.5em;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.new-service-container h2 {
+    text-align: center;
+    font-size: medium;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+}
+
+.new-service-container form label {
+    display: block;
+
+    font-weight: 300;
+}
+
+.new-service-container input[type="text"],
+.new-service-container input[type="number"],
+.new-service-container textarea,
+.new-service-container select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    background: #fdfdfd;
+    font-size: small;
+    color: var(--color-black);
+    font-weight: 300;
+    text-align: center;
+}
+select  {
+    height: min-content;
+}
+
+.new-service-container textarea {
+    resize: vertical;
+}
+
+.new-service-container .tag-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 1em;
+    margin-top: 0.5rem;
+}
+
+.new-service-container .tag-checkboxes input {
+    display: none;
+}
+
+.new-service-container .tag-checkboxes label {
+    background:var(--color-light-gray);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    user-select: none;
+    font-size: small;
+}
+
+.new-service-container .tag-checkboxes input:checked+label {
+    background: var(--color-secondary);
+    color: white;
+    font-size: small;
+}
+
+.new-service-container .drop-area {
+    position: relative;
+    margin-top: 1rem;
+    padding: 1.5rem;
+    border: 2px dashed #ccc;
+    border-radius: 12px;
+    text-align: center;
+    background: #fafafa;
+    transition: background 0.2s, border-color 0.2s;
+    cursor: pointer;
+}
+
+.new-service-container .drop-area.hover {
+    border-color: var(--color-secondary);
+    background: hsl(212, 100%, 97%);
+}
+
+.new-service-container .drop-area input[type="file"] {
+    display: none;
+}
+
+.new-service-container #preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 1rem;
+}
+
+.new-service-container .thumb {
+    position: relative;
+}
+
+.new-service-container .thumb img {
+    height: 100px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.new-service-container .remove-btn {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: var(--color-ternary);
+    border: none;
+    color: white;
+    font-size: 1rem;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.new-service-container .form-actions {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.new-service-container .form-actions button {
+    padding: 0.8rem 2rem;
+    background: var(--color-ternary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.new-service-container .form-actions button:hover {
+    background: var(--color-ternary);
+}
+.new-service-container input{
+    outline: none;
+
+}
+.new-service-container textarea{
+    outline: none;
+}
+
+}

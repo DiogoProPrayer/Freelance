@@ -1,0 +1,12 @@
+User(id, name, username, birthDay, email, passwordHash, profileImage, country, phoneNumber, userStatus, isAdmin, currency)  // client, seller, admin
+
+Service(id, seller->User, title, description, price, category->Categories, deliverTime)
+ServiceTags(service->Service, tag->Tags)
+
+ServiceOrder(id, service->Service, buyer->User, orderStatus, rating, review)
+
+Tags(id,name, category->Categories)
+Categories(id,name)
+
+Messages(id, user1->User, user2->User, text, timeStamp) 
+

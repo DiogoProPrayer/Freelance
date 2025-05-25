@@ -1,0 +1,420 @@
+/* newservice.css — only form/drop-area styling, scoped under .edit-service-container */
+.edit-service
+{   
+    grid-column: 1/span 4;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: subgrid;
+}
+.All-Images{
+    min-height: 10em;;
+    grid-row:1;
+    grid-column: 1/span 4;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+    border: var(--color-primary);
+    border-style:dotted ;
+    margin-top: 1em;
+    gap: 1em;
+}
+.deleteImage{
+    display: block;
+    font-size: xx-small;
+    color: var(--color-white);
+    background: var(--color-ternary);
+    border: none;
+    padding: 0.5em;
+    border-radius: 0.5em;
+}
+.deleteImage.hidden{
+    display: none;
+}
+.contains_service_image{
+    width: 8em;
+    height: 8em;
+    
+
+}
+.contains_service_image  img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.edit-service-container {
+    grid-row: 2;
+    grid-column: 1/span 4;
+    margin: 1em;
+    width: 100%;
+    justify-content: center;
+    justify-self: center;
+    background:var(--color-primary);
+    display: flex;
+    flex-direction: column;
+    gap:0.5em;
+    padding: 2rem;
+    border-radius: 0.5em;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.edit-service-container h2 {
+    text-align: center;
+    font-size: medium;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+}
+
+.edit-service-container form label {
+    display: block;
+
+    font-weight: 300;
+}
+
+.edit-service-container input[type="text"],
+.edit-service-container input[type="number"],
+.edit-service-container textarea,
+.edit-service-container select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    background: #fdfdfd;
+    font-size: small;
+    color: var(--color-black);
+    font-weight: 300;
+    text-align: center;
+}
+select  {
+    height: min-content;
+}
+
+.edit-service-container textarea {
+    resize: vertical;
+}
+
+.edit-service-container .tag-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 1em;
+    margin-top: 0.5rem;
+}
+
+.edit-service-container .tag-checkboxes input {
+    display: none;
+}
+
+.edit-service-container .tag-checkboxes label {
+    background:var(--color-light-gray);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    user-select: none;
+    font-size: small;
+}
+
+.edit-service-container .tag-checkboxes input:checked+label {
+    background: var(--color-secondary);
+    color: white;
+    font-size: small;
+}
+
+.edit-service-container .drop-area {
+    position: relative;
+    margin-top: 1rem;
+    padding: 1.5rem;
+    border: 2px dashed #ccc;
+    border-radius: 12px;
+    text-align: center;
+    background: #fafafa;
+    transition: background 0.2s, border-color 0.2s;
+    cursor: pointer;
+}
+
+.edit-service-container .drop-area.hover {
+    border-color: var(--color-secondary);
+    background: hsl(212, 100%, 97%);
+}
+
+.edit-service-container .drop-area input[type="file"] {
+    display: none;
+}
+
+.edit-service-container #preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 1rem;
+}
+
+.edit-service-container .thumb {
+    position: relative;
+}
+
+.edit-service-container .thumb img {
+    height: 100px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.edit-service-container .remove-btn {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: var(--color-ternary);
+    border: none;
+    color: white;
+    font-size: 1rem;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.edit-service-container .form-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap: 1em;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.edit-service-container .form-actions button {
+    padding: 0.5rem;
+    width: 10em;
+    height: 5em;
+    background: var(--color-ternary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: small;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.edit-service-container .form-actions button:hover {
+    background: var(--color-ternary);
+}
+.edit-service-container input{
+    outline: none;
+
+}
+.edit-service-container textarea{
+    outline: none;
+}
+
+
+@media (width >= 64rem) { 
+.edit-service
+{   
+    grid-column: 1/span 12;
+    grid-row: 2;
+    display: grid;
+    grid-template-columns: subgrid;
+}
+.All-Images{
+    min-height: 10em;;
+    grid-row:1;
+    grid-column: 4/span 6;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: left;
+    border: var(--color-primary);
+    border-style:dotted ;
+    margin-top: 1em;
+    gap: 1em;
+}
+.deleteImage{
+    display: block;
+    font-size: xx-small;
+    color: var(--color-white);
+    background: var(--color-ternary);
+    border: none;
+    padding: 0.5em;
+    border-radius: 0.5em;
+}
+.deleteImage.hidden{
+    display: none;
+}
+.contains_service_image{
+    width: 8em;
+    height: 8em;
+    
+
+}
+.contains_service_image  img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.edit-service-container {
+    grid-row: 2;
+    grid-column: 4/span 6;
+    margin: 1em;
+    width: 100%;
+    justify-content: center;
+    justify-self: center;
+    background:var(--color-primary);
+    display: flex;
+    flex-direction: column;
+    gap:0.5em;
+    padding: 2rem;
+    border-radius: 0.5em;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+.edit-service-container h2 {
+    text-align: center;
+    font-size: medium;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+}
+
+.edit-service-container form label {
+    display: block;
+
+    font-weight: 300;
+}
+
+.edit-service-container input[type="text"],
+.edit-service-container input[type="number"],
+.edit-service-container textarea,
+.edit-service-container select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    background: #fdfdfd;
+    font-size: small;
+    color: var(--color-black);
+    font-weight: 300;
+    text-align: center;
+}
+select  {
+    height: min-content;
+}
+
+.edit-service-container textarea {
+    resize: vertical;
+}
+
+.edit-service-container .tag-checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 1em;
+    margin-top: 0.5rem;
+}
+
+.edit-service-container .tag-checkboxes input {
+    display: none;
+}
+
+.edit-service-container .tag-checkboxes label {
+    background:var(--color-light-gray);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    cursor: pointer;
+    user-select: none;
+    font-size: small;
+}
+
+.edit-service-container .tag-checkboxes input:checked+label {
+    background: var(--color-secondary);
+    color: white;
+    font-size: small;
+}
+
+.edit-service-container .drop-area {
+    position: relative;
+    margin-top: 1rem;
+    padding: 1.5rem;
+    border: 2px dashed #ccc;
+    border-radius: 12px;
+    text-align: center;
+    background: #fafafa;
+    transition: background 0.2s, border-color 0.2s;
+    cursor: pointer;
+}
+
+.edit-service-container .drop-area.hover {
+    border-color: var(--color-secondary);
+    background: hsl(212, 100%, 97%);
+}
+
+.edit-service-container .drop-area input[type="file"] {
+    display: none;
+}
+
+.edit-service-container #preview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 1rem;
+}
+
+.edit-service-container .thumb {
+    position: relative;
+}
+
+.edit-service-container .thumb img {
+    height: 100px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.edit-service-container .remove-btn {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: var(--color-ternary);
+    border: none;
+    color: white;
+    font-size: 1rem;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    cursor: pointer;
+    line-height: 1;
+}
+
+.edit-service-container .form-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    gap: 1em;
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.edit-service-container .form-actions button {
+    padding: 0.5rem;
+    width: 15em;
+    height: 5em;
+    background: var(--color-ternary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: small;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.edit-service-container .form-actions button:hover {
+    background: var(--color-ternary);
+}
+.edit-service-container input{
+    outline: none;
+
+}
+.edit-service-container textarea{
+    outline: none;
+}
+
+}
